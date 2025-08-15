@@ -1,0 +1,102 @@
+[
+    {
+      "model": "restaurants.restaurant",
+      "pk": 1,
+      "fields": {
+        "name": "맛나식당",
+        "phone": "02-1234-0001",
+        "address": "서울시 서대문구 어딘가 1",
+        "image": null,
+        "tag": "두부 요리 잘함",
+        "name_initials": "",
+        "delivery_fee": 1000,
+        "district_name": "연희동",
+        "district_code": "1141061500"
+      }
+    },
+    {
+      "model": "restaurants.restaurant",
+      "pk": 2,
+      "fields": {
+        "name": "든든분식",
+        "phone": "02-1234-0002",
+        "address": "서울시 서대문구 어딘가 2",
+        "image": null,
+        "tag": "따끈한 국물",
+        "name_initials": "",
+        "delivery_fee": 2000,
+        "district_name": "연희동",
+        "district_code": "1141061500"
+      }
+    },
+  
+    { "model":"restaurants.ingredient","pk":1,"fields":{"name":"두부"} },
+    { "model":"restaurants.ingredient","pk":2,"fields":{"name":"김치"} },
+  
+    {
+      "model": "restaurants.menu",
+      "pk": 1,
+      "fields": {
+        "name": "순두부찌개",
+        "restaurant": 1,
+        "name_initials": "",
+        "image": null,
+        "price": 7900,
+        "ingredients": [1],
+        "tags": []
+      }
+    },
+    {
+      "model": "restaurants.menu",
+      "pk": 2,
+      "fields": {
+        "name": "두부조림",
+        "restaurant": 1,
+        "name_initials": "",
+        "image": null,
+        "price": 4300,
+        "ingredients": [1],
+        "tags": []
+      }
+    },
+    {
+      "model": "restaurants.menu",
+      "pk": 3,
+      "fields": {
+        "name": "두부김치",
+        "restaurant": 1,
+        "name_initials": "",
+        "image": null,
+        "price": 5200,
+        "ingredients": [1,2],
+        "tags": []
+      }
+    },
+    {
+      "model": "restaurants.menu",
+      "pk": 4,
+      "fields": {
+        "name": "김치찌개",
+        "restaurant": 2,
+        "name_initials": "",
+        "image": null,
+        "price": 6900,
+        "ingredients": [2],
+        "tags": []
+      }
+    },
+    {
+      "model": "restaurant.menu",
+      "pk": 5,
+      "fields": {
+        "name": "두부덮밥",
+        "restaurant": 2,
+        "name_initials": "",
+        "image": null,
+        "price": 6500,
+        "ingredients": [1],
+        "tags": []
+      }
+    }
+  ]
+  

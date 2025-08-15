@@ -33,6 +33,7 @@ AUTH_USER_MODEL = "accounts.User"
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
+    'django.contrib.humanize',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -40,7 +41,8 @@ INSTALLED_APPS = [
     'accounts',
     'restaurants',
     'delivery',
-    'review',
+    'mealreview',
+    'deliveryreview',
     'voice'
 ]
 
@@ -59,7 +61,7 @@ ROOT_URLCONF = 'Ongibapsang.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [ BASE_DIR / "templates" ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -109,7 +111,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Seoul'
 
 USE_I18N = True
 

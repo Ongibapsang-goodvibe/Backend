@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>세부 선택</title>
+<style>
+  body{margin:0;background:#111;color:#eee;font-family:system-ui,-apple-system,Segoe UI,Roboto,'Apple SD Gothic Neo','Noto Sans KR',sans-serif;display:flex;justify-content:center}
+  .phone{width:360px;min-height:640px;background:#1c1c1c;border-radius:20px;padding:18px;margin:24px;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+  h1{font-size:22px;margin:8px 0 18px}
+  .small{font-size:13px;color:#9aa0a6;margin-top:2px}
+  .btn{width:100%;padding:14px 16px;margin:8px 0;border-radius:12px;border:1px solid #444;background:#2a2a2a;color:#eee;font-size:16px;cursor:pointer}
+  .btn:active{transform:translateY(1px)}
+  .btn-voice{background:#fff;color:#111;display:flex;align-items:center;justify-content:center;gap:8px}
+  .btn.selected{outline:2px solid #ffb44c;background:#2f2f2f}
+  .btn.primary{background:#ffb44c;color:#000;border:0;font-weight:700}
+  .row{display:flex;gap:10px;margin-top:10px}
+  .row .btn{flex:1}
+</style>
+</head>
+<body>
+<div class="phone">
+  <div id="breadcrumb" class="small"></div>
+  <h1 id="title">세부 선택</h1>
+
+  <!-- 옵션 버튼들 -->
+  <div id="option-list"></div>
+
+  <!-- 음성 페이지로 이동 -->
+  <div id="voice-btn" class="btn btn-voice" role="button">🎙️ 말로 할게요</div>
+
+  <div class="row">
+    <button id="back" class="btn">돌아가기</button>
+    <button id="submit" class="btn primary" disabled>선택완료</button>
+  </div>
+
+  <div id="status" class="small"></div>
+</div>
+
+<script>
+/* ===== 공통 설정 ===== */
+const API_BASE = "/mealreview/api"; // urls.py 네임스페이스
+function getCookie(name){
+  const v=`; ${document.cookie}`.split(`; ${name}=`);
+  if(v.length===2) return v.pop().split(';').shift();
+}
+const csrftoken = getCookie('csrftoken');
+
+/* ===== 초기 파라미터/텍스트 ===== */
+const params  = new URLSearchParams(location.search);
+const initial = params.get('initial_label') || '잘 먹었어요';
+
+document.getElementById('breadcrumb').textContent = initial;
+document.getElementById('title').textContent =
+  (initial === '별로였어요') ? '어떤 문제가 있었나요?' : '어떤 점이 좋았나요?';
+
+/* ===== 상태 ===== */
+let selected = { id: null, label: "" };
+
+/* ===== 옵션 로드 (없으면 폴백) ===== */
+async function loadOptions() {
+  const listEl = document.getElementById('option-list');
+  listEl.innerHTML = '';
+
+  try {
+    const res = await fetch(`${API_BASE}/options/detail/?initial_label=${encodeURIComponent(initial)}`);
+    const data = await res.json();
+    const items = (Array.isArray(data) && data.length)
+      ? data
+      : ((initial === '별로였어요')
+          ? ['짜요','싱거워요','달아요','느끼해요']
+          : ['좋아하는 음식이에요','간이 딱 맞아요','속이 편해요']
+        ).map(label => ({ id: null, label }));
+
+    items.forEach(o=>{
+      const b = document.createElement('button');
+      b.className = 'btn option';
+      b.textContent = o.label;
+      b.addEventListener('click', ()=>{
+        document.querySelectorAll('.option').forEach(el=>el.classList.remove('selected'));
+        b.classList.add('selected');
+        selected = { id: o.id, label: o.label };
+        document.getElementById('submit').disabled = false;
+        document.getElementById('status').textContent = '';
+      });
+      listEl.appendChild(b);
+    });
+  } catch (e) {
+    const fallback = (initial === '별로였어요')
+      ? ['짜요','싱거워요','달아요','느끼해요']
+      : ['좋아하는 음식이에요','간이 딱 맞아요','속이 편해요'];
+    fallback.forEach(label=>{
+      const b = document.createElement('button');
+      b.className = 'btn option';
+      b.textContent = label;
+      b.addEventListener('click', ()=>{
+        document.querySelectorAll('.option').forEach(el=>el.classList.remove('selected'));
+        b.classList.add('selected');
+        selected = { id: null, label };
+        document.getElementById('submit').disabled = false;
+        document.getElementById('status').textContent = '';
+      });
+      document.getElementById('option-list').appendChild(b);
+    });
+  }
+}
+loadOptions();
+
+/* ===== 저장(선택완료) ===== */
+async function saveButtonAnswer(){
+  if(!selected.label){
+    document.getElementById('status').textContent = '버튼을 선택해 주세요.';
+    return;
+  }
+  const payload = {
+    initial_label: initial,
+    source: 'BUTTON',
+    option: selected.id,
+    option_label: selected.label
+  };
+
+  try{
+    const res = await fetch('/mealreview/logs/', {
+      method: 'POST',
+      headers: { 'Content-Type':'application/json', 'X-CSRFToken': csrftoken || '' },
+      credentials: 'include',
+      body: JSON.stringify(payload)
+    });
+
+    if (!res.ok) {
+      const text = await res.text();  // ← 에러 본문 표시
+      document.getElementById('status').textContent =
+        `저장 실패 (${res.status}): ${text}`;
+      return;
+    }
+    location.href = '/mealreview/ui/overall/';
+  }catch(e){
+    document.getElementById('status').textContent = `저장 실패: ${String(e)}`;
+  }
+}
+
+
+document.getElementById('submit').addEventListener('click', saveButtonAnswer);
+
+/* ===== 음성 페이지로 이동 (저장은 거기서) ===== */
+document.getElementById('voice-btn').addEventListener('click', ()=>{
+  location.href = `/mealreview/ui/voice/?initial_label=${encodeURIComponent(initial)}`;
+});
+
+/* ===== 뒤로가기 ===== */
+document.getElementById('back').onclick = ()=>history.back();
+</script>
+</body>
+</html>

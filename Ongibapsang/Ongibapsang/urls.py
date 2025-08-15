@@ -25,6 +25,7 @@ urlpatterns = [
 
     # 앱 별 prefix 
     path("voice/", include("voice.urls")), #전사만 수행 
-    path("restaurant/", include("restaurants.urls")),  # ✅ 여기로 탑재
+    path("restaurant/", include("restaurants.urls")),  
+    path("mealreview/", include("mealreview.urls")),
     path("", RedirectView.as_view(pattern_name="restaurants:voice", permanent=False)),
 ]

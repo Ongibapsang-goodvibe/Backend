@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>음성 인식</title>
+<style>
+  :root{--bg:#111;--panel:#1c1c1c;--accent:#ffb44c;--muted:#9aa0a6}
+  body{margin:0;background:var(--bg);color:#eee;font-family:system-ui,-apple-system,Segoe UI,Roboto,'Apple SD Gothic Neo','Noto Sans KR',sans-serif;display:flex;justify-content:center}
+  .phone{width:360px;min-height:640px;background:var(--panel);border-radius:20px;padding:18px;margin:24px;box-shadow:0 10px 30px rgba(0,0,0,.4);text-align:center}
+  h1{font-size:20px;margin:4px 0 16px}
+  .note{color:#ffb44c;margin-bottom:18px}
+  .mic{width:120px;height:120px;border-radius:50%;background:var(--accent);display:inline-flex;align-items:center;justify-content:center;border:0;font-size:28px;font-weight:700;cursor:pointer}
+  .mic.stop{background:#666}
+  .row{display:flex;gap:8px;margin-top:18px;justify-content:center}
+  .btn{padding:12px 16px;border-radius:12px;border:1px solid #444;background:#2a2a2a;color:#eee;font-size:15px;cursor:pointer}
+</style>
+</head>
+<body>
+<div class="phone">
+  <div class="small" id="breadcrumb" style="color:#9aa0a6;margin-bottom:8px"></div>
+  <h1 id="title">어떤 점이 좋았나요?</h1>
+  <div class="note">할 말이 끝나면 <b>주황색 버튼</b>을 누르세요.</div>
+  <button id="mic" class="mic">●</button>
+  <div id="preview" style="margin-top:14px;color:#9aa0a6;min-height:40px;"></div>
+  <div class="row">
+    <button id="back" class="btn">돌아가기</button>
+  </div>
+</div>
+<script>
+  const params = new URLSearchParams(location.search);
+  const initial = params.get('initial_label') || '잘 먹었어요';
+  document.getElementById('breadcrumb').textContent = initial;
+  document.getElementById('title').textContent = initial==='잘 먹었어요' ? '어떤 점이 좋았나요?' : '어떤 문제가 있었나요?';
+
+  const micBtn = document.getElementById('mic');
+  const preview = document.getElementById('preview');
+  let rec=null, listening=false, text='';
+
+  function fallbackPrompt(){
+    const t = prompt('브라우저가 음성 인식을 지원하지 않습니다. 텍스트로 입력해 주세요.');
+    if(t){ sessionStorage.setItem('mv_text', t); location.href=`/mealreview/ui/confirm/?initial_label=${encodeURIComponent(initial)}`; }
+  }
+
+  micBtn.onclick = ()=>{
+    const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if(!SR){ fallbackPrompt(); return; }
+    if(!listening){
+      rec = new SR(); rec.lang='ko-KR'; rec.interimResults=true; text='';
+      rec.onresult = e => { text=Array.from(e.results).map(r=>r[0].transcript).join(''); preview.textContent=text; };
+      rec.onend = ()=>{ listening=false; micBtn.classList.remove('stop'); goConfirm(); };
+      rec.start(); listening=true; micBtn.classList.add('stop');
+    }else{
+      // stop
+      rec.stop();
+    }
+  };
+
+  function goConfirm(){
+    sessionStorage.setItem('mv_text', text||'');
+    location.href = `/mealreview/ui/confirm/?initial_label=${encodeURIComponent(initial)}`;
+  }
+
+  document.getElementById('back').onclick = ()=> history.back();
+</script>
+</body>
+</html>

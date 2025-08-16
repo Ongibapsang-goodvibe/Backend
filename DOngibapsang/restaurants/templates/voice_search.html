@@ -1,0 +1,93 @@
+{% load static %}
+<!doctype html>
+<html lang="ko">
+<meta charset="utf-8">
+<title>음성으로 검색</title>
+<style>
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans KR",sans-serif;margin:24px}
+  .wrap{max-width:560px;margin:0 auto}
+  .row{display:flex;gap:8px;align-items:center;margin:12px 0}
+  button{padding:12px 16px;font-size:16px;cursor:pointer}
+  .box{border:1px solid #ddd;border-radius:12px;padding:12px;min-height:48px}
+  .muted{color:#666;font-size:12px}
+</style>
+
+<div class="wrap">
+  <h2>🎤 음성으로 검색</h2>
+  <div class="row">
+    <button id="startBtn">눌러서 말하기</button>
+    <button id="stopBtn">멈추기</button>
+    <span id="status" class="muted">대기 중</span>
+  </div>
+
+  <div id="transcript" class="box" aria-live="polite">아직 없음</div>
+
+  <div class="row" style="margin-top:16px">
+    <a href="{% url 'restaurants:search-landing' %}">← 검색 방법 선택으로</a>
+  </div>
+</div>
+
+<script>
+(function(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  const $ = (id)=>document.getElementById(id);
+  const startBtn=$('startBtn'), stopBtn=$('stopBtn'), statusEl=$('status'), transcriptEl=$('transcript');
+
+  if(!SR){
+    alert('이 브라우저는 음성 인식을 지원하지 않습니다. (Chrome 권장)');
+    startBtn.disabled = true; stopBtn.disabled = true; return;
+  }
+
+  const r = new SR();
+  r.lang = 'ko-KR';
+  r.interimResults = true;   // 말하는 동안 중간 텍스트 표시
+  r.continuous = false;      // 한 번 듣고 종료
+  r.maxAlternatives = 1;
+
+  let stopper = null;
+  let finalText = '';
+
+  function setStatus(t){ statusEl.textContent = t; }
+
+  r.onstart = () => {
+    finalText = '';
+    transcriptEl.textContent = '인식 중…';
+    setStatus('녹음 중');
+    clearTimeout(stopper);
+    stopper = setTimeout(()=>r.stop(), 6000); // 최대 6초만 듣기(원하면 조정)
+  };
+
+  r.onerror = (e) => {
+    setStatus('오류');
+    transcriptEl.textContent = '인식 오류: ' + (e.error || 'unknown');
+    console.error(e);
+  };
+
+  r.onend = () => {
+    setStatus('대기 중');
+    clearTimeout(stopper);
+  };
+
+  r.onresult = (evt) => {
+    let interim = '';
+    for (let i=evt.resultIndex; i<evt.results.length; i++){
+      const t = evt.results[i][0].transcript;
+      if (evt.results[i].isFinal) finalText += t;
+      else interim += t;
+    }
+    const shown = (finalText || interim).trim();
+    transcriptEl.textContent = shown || '인식 실패';
+
+    // 🔴 최종 문장이 확정되면, 타자 검색과 완전히 같은 로직으로 결과 페이지로 이동
+    if (finalText.trim()){
+      const q = encodeURIComponent(finalText.trim());
+      // 결과 페이지 → OrderResultsPage → simple_three_way_search (공통 로직)
+      location.href = "{% url 'restaurants:order-results' %}?q=" + q + "&source=voice";
+    }
+  };
+
+  startBtn.onclick = ()=> r.start();
+  stopBtn.onclick  = ()=> r.stop();
+})();
+</script>
+</html>

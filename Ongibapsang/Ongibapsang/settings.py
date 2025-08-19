@@ -25,7 +25,8 @@ SECRET_KEY = 'django-insecure-w(=$8t$nm3@s8=!7#c)*vi_=#&jf4im#x0h3bsf7%f_hi6ncx$
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["127.0.0.1", "localhost", "abf4b77eec55.ngrok-free.app"]
+
 AUTH_USER_MODEL = "accounts.User"
 
 # Application definition
@@ -38,15 +39,19 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    "rest_framework",
+    "corsheaders",
     'accounts',
     'restaurants',
-    'delivery',
     'mealreview',
     'deliveryreview',
+    'orders',
+    'healthcare',
     'voice'
 ]
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -55,6 +60,18 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",  # Vite
+    "http://127.0.0.1:5173",
+    "https://c3ffb1cabe3a.ngrok-free.app"
+    
+    # 같은 와이파이에서 프론트가 다른 PC라면(예: 프론트 PC IP가 192.168.0.23)
+    # "http://192.168.0.23:5173",
+    # 터널/스테이징을 쓰면 여기에 추가:
+    # "https://xxxx.ngrok-free.app",
+]
+
 
 ROOT_URLCONF = 'Ongibapsang.urls'
 

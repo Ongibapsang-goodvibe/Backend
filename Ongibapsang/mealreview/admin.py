@@ -4,7 +4,7 @@ from .models import *
 # Register your models here.
 @admin.register(DetailOption)
 class DetailOptionAdminn(admin.ModelAdmin):
-    list_display  = ("label", "initial_label", "sort_order")
+    list_display  = ("id","label", "initial_label", "sort_order")
     search_fields = ("label",)
     ordering      = ("initial_label", "sort_order", "id")
 

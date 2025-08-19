@@ -1,0 +1,10 @@
+[
+    {"model":"deliveryreview.detailoption","pk":1,
+     "fields":{"label":"","initial_label":"GOOD","sort_order":10}},
+    {"model":"deliveryreview.detailoption","pk":2,
+     "fields":{"label":"너무 늦게 왔어요","initial_label":"BAD","sort_order":20}},
+     {"model":"deliveryreview.detailoption","pk":3,
+     "fields":{"label":"음식이 샜어요","initial_label":"BAD","sort_order":30}},
+     {"model":"deliveryreview.detailoption","pk":4,
+     "fields":{"label":"음식이 다 안 왔어요","initial_label":"BAD","sort_order":40}}
+]

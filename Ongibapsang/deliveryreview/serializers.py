@@ -9,25 +9,34 @@ class DetailOptionSerializer(serializers.ModelSerializer):
         fields = ["id", "label", "initial_label", "sort_order"]
 
 
-class MealLogSerializer(serializers.ModelSerializer):
-    # FK들을 명시적으로 지정 (권장)
+class DeliveryLogSerializer(serializers.ModelSerializer):
     order = serializers.PrimaryKeyRelatedField(
-        queryset=Order.objects.all(), required=True  # 주문이 항상 있어야 하면 True
-    )
+        queryset = Order.objects.all(), required=True 
+    ) #주문 항상 있어야 함
     option = serializers.PrimaryKeyRelatedField(
-        queryset=DetailOption.objects.all(), required=False, allow_null=True
+        queryset = DetailOption.objects.all(), required=False, allow_null=True
     )
 
+
     class Meta:
-        model = MealLog
-        fields = ["id","initial_label","order","source","option","option_label","text","created_at"]
+        model = DeliveryLog
+        fields = ["id","initial_label","source","order","option","option_label","text","created_at"]
         read_only_fields = ["id","created_at"]
 
     def validate(self, attrs):
+        init= attrs.get("initial_label")
         source = attrs.get("source") or Source.BUTTON
         option = attrs.get("option")
         option_label = (attrs.get("option_label") or "").strip()
         text = (attrs.get("text") or "").strip()
+
+        #'네'를 택할 경우에 바로 저장
+        if init==DeliveryOption.GOOD:
+            if option and not option_label:
+                attrs["option_label"] = option.label
+            attrs["text"] = text
+            attrs["option_label"] = attrs.get("option_label") or option_label
+            return attrs
 
         if source == Source.BUTTON:
             if not option and not option_label:
@@ -42,6 +51,8 @@ class MealLogSerializer(serializers.ModelSerializer):
         if option and not option_label:
             attrs["option_label"] = option.label
 
+        # 공백만 들어오지 않게 정리
         attrs["text"] = text
         attrs["option_label"] = option_label
         return attrs
+        

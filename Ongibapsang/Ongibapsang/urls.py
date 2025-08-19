@@ -22,10 +22,13 @@ from django.views.generic import RedirectView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-
+    path('api/accounts/', include("accounts.urls")),
     # 앱 별 prefix 
-    path("voice/", include("voice.urls")), #전사만 수행 
-    path("restaurant/", include("restaurants.urls")),  
-    path("mealreview/", include("mealreview.urls")),
-    path("", RedirectView.as_view(pattern_name="restaurants:voice", permanent=False)),
+    # path("api/voice", include("voice.urls")), #전사만 수행 
+    path("api/restaurants/", include("restaurants.urls")),  
+    path("api/orders/", include("orders.urls")),
+    path("api/mealreview/", include("mealreview.urls")),
+    path("api/deliveryreview/", include("deliveryreview.urls")),
+    path("api/healthcare/", include("healthcare.urls"))
+    
 ]

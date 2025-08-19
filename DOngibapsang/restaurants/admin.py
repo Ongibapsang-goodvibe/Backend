@@ -1,12 +1,16 @@
 # restaurants/admin.py
 from django.contrib import admin
-from .models import Restaurant, Menu, Ingredient, Tag, SearchLog
+from .models import *
 
 class MenuInline(admin.TabularInline):
     model = Menu
     extra = 1
-    fields = ("name", "price", "ingredients", "tags")
-    filter_horizontal = ("ingredients", "tags")
+    fields = ("name", "price", "ingredients")
+    filter_horizontal = ("ingredients",)
+
+class MenuNutritionInline(admin.TabularInline):
+    model = MenuNutrition
+    extra = 1
 
 @admin.register(Restaurant)
 class RestaurantAdmin(admin.ModelAdmin):
@@ -19,7 +23,7 @@ class MenuAdmin(admin.ModelAdmin):
     list_display = ("id", "name", "restaurant", "price")
     search_fields = ("name",)
     list_filter = ("restaurant",)
-    filter_horizontal = ("ingredients", "tags")
+    filter_horizontal = ("ingredients",)
 
 @admin.register(Ingredient)
 class IngredientAdmin(admin.ModelAdmin):

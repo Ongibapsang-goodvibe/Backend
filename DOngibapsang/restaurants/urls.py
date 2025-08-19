@@ -1,7 +1,7 @@
 # restaurant/urls.py
 from django.urls import path
 from django.views.generic import TemplateView
-from .views import SearchByTranscriptionView
+from .views import SearchByTranscriptionView, RecommendMenuView
 from .views_pages import OrderResultsPage, VoiceSearchPage
 
 app_name = "restaurants"
@@ -21,4 +21,6 @@ urlpatterns = [
 
     # 5) 검색 API (JSON, POST)  ← 페이지가 아니라 API!
     path("api/search", SearchByTranscriptionView.as_view(), name="search-api"),
+
+    path('recommend/', RecommendMenuView.as_view(), name='recommend_menu'),
 ]

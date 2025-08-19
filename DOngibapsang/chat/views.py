@@ -32,8 +32,8 @@ def process_audio(request):
         ChatMessage.objects.create(role='user', content=user_text)
 
         # 이전 대화 가져오기 -> 대화 이어서 전송
-        previous_messages = ChatMessage.objects.all().order_by('created_at')
-        messages_for_gpt = [{"role": "system", "content": "너는 친절한 챗봇이야."}]
+        previous_messages = ChatMessage.objects.all().order_by('-created_at')[:10] #마지막 10단어만 불러오는 방식으로 호출 시간 줄이기. 아예 메시지 생성 글자 제한을 두는 방식으로 가도 될 듯
+        messages_for_gpt = [{"role": "system", "content": "최대한 귀여운 아이같은 말투와 최대한 귀엽고 높은 톤으로 천천히 말해주세요. 답변 시간은 15초 이내로 해주세요."}]
         for msg in previous_messages:
             messages_for_gpt.append({
                 "role": "assistant" if msg.role == "ai" else "user", 
@@ -55,8 +55,8 @@ def process_audio(request):
         with open(speech_file_path, "wb") as f:
             tts = openai.audio.speech.create(
                 model="gpt-4o-mini-tts",
-                voice="alloy",
-                input=answer_text
+                voice="sage",
+                input=answer_text,
             )
             f.write(tts.read())
 

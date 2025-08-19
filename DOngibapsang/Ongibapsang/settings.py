@@ -52,6 +52,8 @@ INSTALLED_APPS = [
     'deliveryreview',
     'voice',
     'chat',
+    'healthcare',
+    'orders',
 ]
 
 MIDDLEWARE = [

@@ -27,9 +27,9 @@ urlpatterns = [
     path("voice/", include("voice.urls")), #전사만 수행 
     path("restaurant/", include("restaurants.urls")),  # ✅ 여기로 탑재
     path("", RedirectView.as_view(pattern_name="voice:transcribe", permanent=False)),
-    path('chat/', include('chat.urls'))
+    path('chat/', include('chat.urls')),
+    path('orders/', include("orders.urls")),
 ]
-'''
+
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-'''

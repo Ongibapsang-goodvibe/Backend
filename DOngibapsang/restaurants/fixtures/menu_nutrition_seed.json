@@ -1,0 +1,16 @@
+[
+    {"model":"restaurants.nutrient", "pk":1, "fields":{"code":"CARB", "name":"탄수화물", "unit":"g"}},
+    {"model":"restaurants.nutrient", "pk":2, "fields":{"code":"SUGAR", "name":"당분", "unit":"g"}},
+    {"model":"restaurants.nutrient", "pk":3, "fields":{"code":"PROTEIN", "name":"단백질", "unit":"g"}},
+    {"model":"restaurants.nutrient", "pk":4, "fields":{"code":"FAT", "name":"지방", "unit":"g"}},
+    {"model":"restaurants.nutrient", "pk":5, "fields":{"code":"SAT_fAT", "name":"포화지방", "unit":"g"}},
+    {"model":"restaurants.nutrient", "pk":6, "fields":{"code":"FIBER", "name":"섬유질", "unit":"g"}},
+    {"model":"restaurants.nutrient", "pk":7, "fields":{"code":"SODIUM", "name":"나트륨", "unit":"mg"}},
+    {"model":"restaurants.nutrient", "pk":8, "fields":{"code":"POTASSIUM", "name":"칼륨", "unit":"mg"}},
+    {"model":"restaurants.nutrient", "pk":9, "fields":{"code":"PHOSPHORUS", "name":"인", "unit":"mg"}},
+    {"model":"restaurants.nutrient", "pk":10, "fields":{"code":"CALCIUM", "name":"칼슘", "unit":"mg"}},
+    {"model":"restaurants.nutrient", "pk":11, "fields":{"code":"OMEGA-3", "name":"오메가-3", "unit":"mg"}},
+    {"model":"restaurants.nutrient", "pk":12, "fields":{"code":"VITAMIN-D", "name":"비타민D", "unit":"µg"}},
+    {"model":"restaurants.nutrient", "pk":13, "fields":{"code":"WATER", "name":"수분", "unit":"ml"}},
+    {"model":"restaurants.nutrient", "pk":14, "fields":{"code":"ENERGY", "name":"열량", "unit":"kcal"}}
+]

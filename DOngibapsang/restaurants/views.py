@@ -2,9 +2,19 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status, permissions
+from django.contrib.auth.decorators import login_required
+from rest_framework.permissions import IsAuthenticated
 from voice.models import Transcription
 from .serializers import SearchInputSerializer, MenuCardSerializer
 from .services_search import simple_three_way_search
+from .recommendation import main_recommend
+
+class RecommendMenuView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        rec = main_recommend(request.user, limit=10)
+        return Response(rec)
 
 #프론트에서 Json으로 호출하는 api 
 class SearchByTranscriptionView(APIView):

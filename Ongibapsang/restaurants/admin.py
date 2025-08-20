@@ -16,7 +16,7 @@ class RestaurantAdmin(admin.ModelAdmin):
 
 @admin.register(Menu)
 class MenuAdmin(admin.ModelAdmin):
-    list_display = ("id", "name", "restaurant", "price")
+    list_display = ("id", "name", "restaurant","category","price")
 
 @admin.register(Ingredient)
 class IngredientAdmin(admin.ModelAdmin):

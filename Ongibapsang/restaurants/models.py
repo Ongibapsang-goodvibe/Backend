@@ -51,14 +51,14 @@ class MenuNutrition(models.Model):
 
 class Menu(models.Model):
     CATEGORY_CHOICES = (
-        (0, '국 · 찌개'),
-        (1, '밥'),
-        (2, '죽'),
-        (3, '반찬')
+        ("0", '국 · 찌개'),
+        ("1", '밥'),
+        ("2", '죽'),
+        ("3", '반찬')
     )
     name = models.CharField(max_length=100)
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE, related_name="menus")
-    category = models.CharField(max_length=10, choices=CATEGORY_CHOICES, default=0) 
+    category = models.CharField(max_length=10, choices=CATEGORY_CHOICES, default="0") 
     # name_initials = models.CharField(max_length=100, db_index=True, blank=True, default="")
     image = models.ImageField(upload_to='restaurant_images/', null=True, blank=True)
     price = models.IntegerField(default=0)

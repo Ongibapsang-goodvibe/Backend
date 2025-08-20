@@ -1,47 +1,50 @@
-from django import forms
-from django.contrib.auth import get_user_model, login
+from django.contrib.auth import get_user_model
+from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny
-from rest_framework.parsers import JSONParser, FormParser, MultiPartParser
 from rest_framework import generics
 from .models import *
 from .serializers import *
-from rest_framework import generics, permissions
-from .models import User
-from .serializers import UserDiseaseSerializer, UserSerializer
-from rest_framework.views import APIView
+from rest_framework import generics
 from rest_framework.response import Response
+from rest_framework import status
+from rest_framework.authtoken.models import Token
+from rest_framework.permissions import IsAuthenticated
+
 # Create your views here.
+# 로그인(이름+비밀번호 숫자 6자리) 
+class LoginView(APIView):
+    authentication_classes = []
+    permission_classes = []
 
-# 토큰 로그인 폼 정의 
-# class TokenOnlyForm(forms.Form):
-#     token = forms.CharField(
-#         max_length=6, min_length=6,
-#         validators=[RegexValidator(r'^\d{6}$', '6자리 숫자를 입력하세요.')], # 숫자 6자리만 허용
-#         widget=forms.TextInput(attrs={"placeholder":"6자리 토큰","inputmode":"numeric","autofocus":True}),
-#         label="토큰",
-#     )
+    def post(self, request):
+        s = LoginSerializer(data=request.data)
+        s.is_valid(raise_exception=True)
+        user = s.validated_data["user"]
 
-# @require_http_methods(["GET", "POST"]) #다른 메서드는 405 
+        token, _ = Token.objects.get_or_create(user=user)
 
-# def login(request):
-#     next_url = request.GET.get("next") or request.POST.get("next") or "/"  #로그인 성공 후 이동할 주소 결정 
-#     if request.method == "GET":
-#         return render(request, "accounts/token_login.html", {"form": TokenOnlyForm(), "next": next_url})
+        return Response({
+            "token": token.key,
+            "user": {
+                "id": user.id,
+                "name": user.username,  # username 필드에 이름 저장했다고 가정
+            }
+        }, status=status.HTTP_200_OK)
+    
 
-#     form = TokenOnlyForm(request.POST)
-#     if not form.is_valid():
-#         return render(request, "accounts/token_login.html", {"form": form, "next": next_url})
+#로그아웃
+class LogoutView(APIView):
+    permission_classes = [IsAuthenticated]  # 토큰 필요
 
-#     token = form.cleaned_data["token"]
-#     user = User.objects.filter(token=token, is_active=True).first()
-#     if not user:
-#         return render(request, "accounts/token_login.html",
-#                       {"form": form, "next": next_url, "error": "토큰이 올바르지 않습니다."})
+    def post(self, request):
+        # 현재 요청에 사용된 토큰 객체가 있으면 삭제
+        if getattr(request, "auth", None):
+            request.auth.delete()  # Token row 삭제 -> 즉시 무효화
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
-#     login(request, user, backend="django.contrib.auth.backends.ModelBackend")
-#     return redirect(next_url)
+
+
 User = get_user_model()
-
 #질환 처음 저장 
 # views.py
 class DiseaseUpdateView(generics.UpdateAPIView):

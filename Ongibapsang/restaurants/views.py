@@ -1,14 +1,14 @@
 # restaurants/views.py
 from rest_framework.views import APIView
+from rest_framework.generics import ListAPIView
 from rest_framework.response import Response
 from rest_framework import status, permissions
 
+from .models import * 
 from .serializers import SearchInputSerializer, MenuCardSerializer
 from .services_search import simple_three_way_search
 
-#프론트에서 Json으로 호출하는 api 
-#서비스 호출 -> 시리얼라이저로 응답
-
+# 메뉴 검색 결과 뷰 
 class SearchView(APIView):
     permission_classes = [permissions.AllowAny]
 
@@ -22,4 +22,20 @@ class SearchView(APIView):
         data = MenuCardSerializer(qs, many=True).data
         return Response({"stage": stage, "cards": data}, status=status.HTTP_200_OK)
     
+# 메뉴 카테고리별 분류 
+class CategoryView(ListAPIView):
+        permission_classes = [permissions.AllowAny]
+        serializer_class = MenuCardSerializer
+        
+        def get_queryset(self):
+            codes = self.request.query_params.getlist("category")
 
+            if not codes:
+                return Menu.objects.none()
+            return Menu.objects.filter(category__in=codes).order_by("id")
+
+        # SearchView와 동일한 응답 형태로 통일
+        def list(self, request, *args, **kwargs):
+            qs = self.get_queryset()
+            data = self.get_serializer(qs, many=True).data
+            return Response({"cards": data}, status=status.HTTP_200_OK)

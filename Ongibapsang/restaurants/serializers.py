@@ -4,15 +4,9 @@ from .models import *
 
 class SearchInputSerializer(serializers.Serializer):
     text = serializers.CharField(required=True, allow_blank=False)
-    # transcription_id = serializers.IntegerField(required=False)
     limit = serializers.IntegerField(required=False, default=10)
 
-    # def validate(self, attrs):
-    #     if not attrs.get("text") and not attrs.get("transcription_id"):
-    #         raise serializers.ValidationError("text 또는 transcription_id 중 하나는 필요합니다.")
-    #     return attrs
-
-# 서치 결과 메뉴 카트 시리얼라이저
+# 메뉴 한 건을 카드 형태로 직렬화 
 class MenuCardSerializer(serializers.ModelSerializer):
     menu_id = serializers.IntegerField(source="id", read_only=True)
     menu_name = serializers.CharField(source="name", read_only=True)

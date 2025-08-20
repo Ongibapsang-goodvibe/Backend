@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     "rest_framework",
+    "rest_framework.authtoken",
     "corsheaders",
     'accounts',
     'restaurants',
@@ -49,6 +50,13 @@ INSTALLED_APPS = [
     'healthcare',
     'voice'
 ]
+
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.TokenAuthentication",
+    ]
+}
 
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
@@ -62,9 +70,9 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",  # Vite
-    "http://127.0.0.1:5173",
-    "https://c3ffb1cabe3a.ngrok-free.app"
+    "http://localhost:5174",  # Vite
+    "http://127.0.0.1:5174",
+    "https://abf4b77eec55.ngrok-free.app"
     
     # 같은 와이파이에서 프론트가 다른 PC라면(예: 프론트 PC IP가 192.168.0.23)
     # "http://192.168.0.23:5173",
@@ -108,20 +116,8 @@ DATABASES = {
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
+    {"NAME": "accounts.validators.SixDigitPasswordValidator"},
 ]
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/

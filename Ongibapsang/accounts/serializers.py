@@ -1,5 +1,23 @@
 from rest_framework import serializers
+from django.contrib.auth import authenticate
 from .models import *
+
+#로그인 시리얼라이저
+class LoginSerializer(serializers.Serializer):
+    name=serializers.CharField()
+    password=serializers.CharField(write_only=True)
+
+    def validate(self, attrs):
+        name = attrs.get("name")
+        password = attrs.get("password")
+
+        user = authenticate(username=name, password=password)
+        if not user:
+            raise serializers.ValidationError("이름 또는 비밀번호가 올바르지 않습니다.")
+        attrs["user"] = user
+        return attrs
+
+
 
 #질환 시리얼라이저 
 class UserDiseaseSerializer(serializers.ModelSerializer):

@@ -1,11 +1,11 @@
 # restaurant/urls.py
 from django.urls import path
-from .views import SearchView
+from .views import SearchView, CategoryView
 
 app_name = "restaurants"
 
 urlpatterns = [
-    # 검색 api 
-    path("search/", SearchView.as_view(), name="search-api"),
+    path("search/", SearchView.as_view(), name="search-api"), # 검색 api 
+    path("menus/", CategoryView.as_view(), name="menu-category-api") #카테고리별 분류 api 
 ]
 

@@ -1,5 +1,9 @@
+from django.shortcuts import render
+from rest_framework.parsers import JSONParser, FormParser, MultiPartParser
+from rest_framework.permissions import AllowAny
+from rest_framework import generics
 from datetime import datetime, timedelta
-from collections import defaultdict
+from collections import defaultdict, Counter
 import os
 from django.utils import timezone
 from rest_framework.views import APIView
@@ -39,13 +43,13 @@ def monday_to_now():
 #지난 주 월요일 00:00 ~ 이번 주 월요일 00:00
 def lastweek():
     now = timezone.now()
-    this_monday = monday_set(now)
-    last_monday = this_monday - timedelta(days=7)
+    this_monday = now - timezone.timedelta(days=now.weekday())
+    last_monday = this_monday - timezone.timedelta(days=7)
     return last_monday, this_monday
 
-def weekly_data(user: User, disease_id: int, start, end):
+def weekly_data(user: User, disease_id: int, start, now):
     orders = (
-        Order.objects.filter(user=user, time__gte=start, time__lt=end)
+        Order.objects.filter(user=user, time__gte=start, time__lt=now)
         .select_related("menu")
         .prefetch_related("menu__menu_nutritions__nutrient")
     )
@@ -112,7 +116,7 @@ def weekly_data(user: User, disease_id: int, start, end):
         "weekly_recommend": weekly_recommend,
         "order_count": order_count,
         "period_start": start,
-        "period_end": end,
+        "period_end": now,
     }
 
 def ai_api_calling(analysis: dict, disease_name: str):
@@ -258,3 +262,82 @@ class LastWeekNutritionReport(APIView):
             }
 
         return Response(result, status=status.HTTP_200_OK)
+    
+#---------------------------------------------------------------------------------------------------
+#DB 저장용
+class HealthcareLogView(generics.CreateAPIView):
+    serializer_class=HealthcareLogSerializer
+    permission_classes=[AllowAny]
+    parser_classes=[JSONParser, FormParser, MultiPartParser] #JSON/폼 다 받기
+
+    def perform_create(self, serializer):
+        if self.request.user.is_authenticated:
+            serializer.save(user=self.request.user)
+        else:
+            serializer.save()
+
+class HealthReportView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request):
+        user = request.user
+        '''
+        last_monday, this_monday = lastweek()
+
+        logs = HealthcareLog.objects.filter(
+            user=user,
+            created_at__gte=last_monday,
+            created_at__lt=this_monday
+        )
+        '''
+        start, now = monday_to_now()
+
+        logs = HealthcareLog.objects.filter(
+            #user=user,
+            created_at__gte=start, #last_monday,
+            created_at__lt=now #this_monday
+        )
+        # BAD 개수 & BAD 로그
+        bad_logs = logs.filter(initial_label="BAD")
+        bad_count = bad_logs.count()
+        bad_logs_serializer = HealthcareLogSerializer(bad_logs, many=True).data
+
+        # mood 집계
+        mood_list = [log.mood_label for log in logs if log.mood_label]
+        mood_counts = dict(Counter(mood_list))
+        dominant_mood = max(mood_counts.items(), key=lambda x: x[1])[0] if mood_counts else None
+
+        # 요일별 BAD 텍스트 + 요일별 mood count
+        weekday_bad_texts = defaultdict(list)
+        weekday_moods = defaultdict(list)
+
+        for log in logs:
+            weekday = log.created_at.strftime("%A")
+            if log.initial_label == HealthcareOption.BAD:
+                weekday_bad_texts[weekday].append(log.text)
+            if log.mood_label:
+                weekday_moods[weekday].append(log.mood_label)
+
+        # 요일별 mood 카운트로 변환
+        weekday_mood_counts = {
+            day: dict(Counter(moods)) for day, moods in weekday_moods.items()
+        }
+
+        payload = {
+            "period_start": start, #last_monday,
+            "period_end": now - timezone.timedelta(days=1), #this_monday
+            "bad_count": bad_count,
+            "bad_logs": bad_logs_serializer,
+            "dominant_mood": dominant_mood,
+            "mood_counts": mood_counts,
+            "weekday_bad_texts": dict(weekday_bad_texts),
+            "weekday_mood_counts": weekday_mood_counts,
+        }
+
+        print("start:", start, "now:", now)
+        print("All logs:", list(HealthcareLog.objects.filter(user=user).values("created_at", "initial_label", "mood_label")))
+
+        serializer = H_AnalysisSerializer(payload)
+        return Response(serializer.data)
+    
+        

@@ -46,6 +46,8 @@ class N_AnalysisSerializer(serializers.Serializer):
 class H_AnalysisSerializer(serializers.Serializer):
     period_start = serializers.DateTimeField()
     period_end = serializers.DateTimeField()
+    weekday_bad_texts = serializers.DictField()
+    weekday_mood_counts = serializers.DictField()
     bad_count = serializers.IntegerField()
     bad_logs = HealthcareLogSerializer(many=True)
     dominant_mood = serializers.CharField()

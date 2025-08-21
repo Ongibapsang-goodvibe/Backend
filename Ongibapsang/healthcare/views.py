@@ -47,9 +47,9 @@ def lastweek():
     last_monday = this_monday - timezone.timedelta(days=7)
     return last_monday, this_monday
 
-def weekly_data(user: User, disease_id: int, start, now):
+def weekly_data(user: User, disease_id: int, start, end):
     orders = (
-        Order.objects.filter(user=user, time__gte=start, time__lt=now)
+        Order.objects.filter(user=user, time__gte=start, time__lt=end)
         .select_related("menu")
         .prefetch_related("menu__menu_nutritions__nutrient")
     )
@@ -116,7 +116,7 @@ def weekly_data(user: User, disease_id: int, start, now):
         "weekly_recommend": weekly_recommend,
         "order_count": order_count,
         "period_start": start,
-        "period_end": now,
+        "period_end": end,
     }
 
 def ai_api_calling(analysis: dict, disease_name: str):
@@ -312,17 +312,18 @@ class HealthReportView(APIView):
         weekday_moods = defaultdict(list)
 
         for log in logs:
-            weekday = log.created_at.strftime("%A")
+            KOREAN_WEEKDAYS = ["월요일", "화요일", "수요일", "목요일", "금요일", "토요일", "일요일"]
+            weekday = KOREAN_WEEKDAYS[log.created_at.weekday()]
             if log.initial_label == HealthcareOption.BAD:
                 weekday_bad_texts[weekday].append(log.text)
             if log.mood_label:
                 weekday_moods[weekday].append(log.mood_label)
-
-        # 요일별 mood 카운트로 변환
+        
+        #요일별 mood 카운트로 변환
         weekday_mood_counts = {
             day: dict(Counter(moods)) for day, moods in weekday_moods.items()
         }
-
+        
         payload = {
             "period_start": start, #last_monday,
             "period_end": now - timezone.timedelta(days=1), #this_monday
@@ -333,9 +334,6 @@ class HealthReportView(APIView):
             "weekday_bad_texts": dict(weekday_bad_texts),
             "weekday_mood_counts": weekday_mood_counts,
         }
-
-        print("start:", start, "now:", now)
-        print("All logs:", list(HealthcareLog.objects.filter(user=user).values("created_at", "initial_label", "mood_label")))
 
         serializer = H_AnalysisSerializer(payload)
         return Response(serializer.data)

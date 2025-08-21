@@ -29,7 +29,7 @@ urlpatterns = [
     #path("", RedirectView.as_view(pattern_name="voice:transcribe", permanent=False)),
     path('chat/', include('chat.urls')),
     path('orders/', include("orders.urls")),
-    #path('healthcare/', include("healthcare.urls")),
+    #path('healthcare/', include("healthcare.urls")), 아직 수정 중
 ]
 
 if settings.DEBUG:

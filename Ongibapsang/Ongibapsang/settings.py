@@ -48,7 +48,6 @@ INSTALLED_APPS = [
     'deliveryreview',
     'orders',
     'healthcare',
-    'voice'
 ]
 
 

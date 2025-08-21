@@ -45,3 +45,8 @@ class MealLogSerializer(serializers.ModelSerializer):
         attrs["text"] = text
         attrs["option_label"] = option_label
         return attrs
+    
+
+    #리뷰 집계용
+    def create(self, validated_data):
+        return self.Meta.model.objects.create(**validated_data)

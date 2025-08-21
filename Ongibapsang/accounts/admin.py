@@ -6,21 +6,9 @@ from django.contrib.auth import get_user_model
 
 User = get_user_model()
 
-class CustomUserCreationForm(UserCreationForm):
-    class Meta(UserCreationForm.Meta):
-        model = User
-        fields = ("username", "phone", "address", "district_name", "district_code", "diseases")
-
-class CustomUserChangeForm(UserChangeForm):
-    class Meta(UserChangeForm.Meta):
-        model = User
-        fields = ("username", "phone", "address", "district_name", "district_code", "diseases",
-                  "is_active", "is_staff", "is_superuser", "groups", "user_permissions")
 
 @admin.register(User)
 class UserAdmin(BaseUserAdmin):
-    add_form = CustomUserCreationForm
-    form = CustomUserChangeForm
     model = User
 
     list_display = ("id", "username", "district_name", "display_diseases", "is_active", "is_staff")

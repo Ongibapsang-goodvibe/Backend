@@ -46,3 +46,5 @@ class MealLog(models.Model):
 
     def __str__(self):
         return self.option_label or (self.text[:10] + "…")
+    
+

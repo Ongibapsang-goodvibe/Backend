@@ -7,35 +7,16 @@
     {"model":"healthcare.disease", "pk":6, "fields":{"name":"관절염"}},
     {"model":"healthcare.disease", "pk":7, "fields":{"name":"심부전"}},
 
-    {"model":"healthcare.diseaserules", "pk":1, "fields":{"disease":1, "nutrient":1, "rule_type":"PERCENT", "min_week":null, "max_week":60.0, "note":"탄수화물: 하루 섭취열량의 60% 미만"}},
-    {"model":"healthcare.diseaserules", "pk":2, "fields":{"disease":1, "nutrient":2, "rule_type":"PERCENT", "min_week":null, "max_week":60.0, "note":"당분: 하루 섭취열량의 60% 미만"}},
-    {"model":"healthcare.diseaserules", "pk":3, "fields":{"disease":1, "nutrient":5, "rule_type":"PERCENT", "min_week":null, "max_week":10.0, "note":"포화지방: 하루 섭취열량의 10% 미만"}},
-    {"model":"healthcare.diseaserules", "pk":4, "fields":{"disease":1, "nutrient":4, "rule_type":"PERCENT", "min_week":null, "max_week":35.0, "note": "지방: 하루 섭취열량의 35% 미만"}},
-    {"model":"healthcare.diseaserules", "pk":5, "fields":{"disease":1, "nutrient":6, "rule_type":"ABSOLUTE", "min_week":14.0, "max_week":null, "note":"섬유질: 14g/1,000kcal 이상"}},
-
-    {"model":"healthcare.diseaserules", "pk":6, "fields":{"disease":2, "nutrient":3, "rule_type":"ABSOLUTE", "min_week":null, "max_week":32.0, "note":"단백질: 32g/1,000kcal 미만"}},
-    {"model":"healthcare.diseaserules", "pk":7, "fields":{"disease":2, "nutrient":7, "rule_type":"ABSOLUTE", "min_week":null, "max_week":2000.0, "note":"나트륨: 2000mg/일 미만"}},
-    {"model":"healthcare.diseaserules", "pk":8, "fields":{"disease":2, "nutrient":8, "rule_type":"ABSOLUTE", "min_week":null, "max_week":2000.0, "note":"칼륨: 2000mg/일 미만"}},
-    {"model":"healthcare.diseaserules", "pk":9, "fields":{"disease":2, "nutrient":9, "rule_type":"ABSOLUTE", "min_week":null, "max_week":800.0, "note":"인: 800mg/일 미만"}},
-
-    {"model":"healthcare.diseaserules", "pk":10, "fields":{"disease":3, "nutrient":10, "rule_type":"ABSOLUTE", "min_week":1000.0, "max_week":null, "note":"칼슘: 1,000mg/일 이상"}},
-
-    {"model":"healthcare.diseaserules", "pk":11, "fields":{"disease":4, "nutrient":8, "rule_type":"ABSOLUTE", "min_week":3500.0, "max_week":null, "note":"칼륨: 3,500mg/일 이상"}},
-    {"model":"healthcare.diseaserules", "pk":12, "fields":{"disease":4, "nutrient":4, "rule_type":"PERCENT", "min_week":null, "max_week":20.0, "note":"지방: 하루 섭취열량의 20% 미만"}},
-    {"model":"healthcare.diseaserules", "pk":13, "fields":{"disease":4, "nutrient":7, "rule_type":"ABSOLUTE", "min_week":null, "max_week":2000.0, "note":"나트륨: 2000mg/일 미만"}},
-
-    {"model":"healthcare.diseaserules", "pk":14, "fields":{"disease":5, "nutrient":8, "rule_type":"PERCENT", "min_week":null, "max_week":35.0, "note":"지방: 하루 섭취 열량의 35% 미만"}},
-    {"model":"healthcare.diseaserules", "pk":15, "fields":{"disease":5, "nutrient":6, "rule_type":"ABSOLUTE", "min_week":10, "max_week":null, "note":"섬유질: 10g/1,000kcal 이상"}},
-    
-    {"model":"healthcare.diseaserules", "pk":16, "fields":{"disease":6, "nutrient":2, "rule_type":"PERCENT", "min_week":null, "max_week":60.0, "note":"당분: 하루 섭취열량의 60% 미만"}},
-    {"model":"healthcare.diseaserules", "pk":17, "fields":{"disease":6, "nutrient":11, "rule_type":"ABSOLUTE", "min_week":250.0, "max_week":null, "note":"오메가-3: 250mg/1회 이상"}},
-    {"model":"healthcare.diseaserules", "pk":18, "fields":{"disease":6, "nutrient":4, "rule_type":"PERCENT", "min_week":null, "max_week":20.0, "note":"지방: 하루 섭취열량의 20% 미만"}},
-    {"model":"healthcare.diseaserules", "pk":19, "fields":{"disease":6, "nutrient":12, "rule_type":"ABSOLUTE", "min_week":5.0, "max_week":15.0, "note":"비타민D: 5µg(1회)이상, 15µg(일) 미만"}},
-    {"model":"healthcare.diseaserules", "pk":20, "fields":{"disease":6, "nutrient":10, "rule_type":"ABSOLUTE", "min_week":800.0, "max_week":null, "note":"칼슘: 800mg/일 이상"}},
-    
-    {"model":"healthcare.diseaserules", "pk":21, "fields":{"disease":7, "nutrient":3, "rule_type":"ABSOLUTE", "min_week":37.0, "max_week":null, "note":"단백질: 37g/1000kcal 이상"}},
-    {"model":"healthcare.diseaserules", "pk":22, "fields":{"disease":7, "nutrient":4, "rule_type":"PERCENT", "min_week":null, "max_week":20.0, "note":"지방: 하루 섭취열량의 20% 미만"}},
-    {"model":"healthcare.diseaserules", "pk":23, "fields":{"disease":7, "nutrient":7, "rule_type":"ABSOLUTE", "min_week":null, "max_week":2000.0, "note":"나트륨: 2000mg/일 미만"}},
-    {"model":"healthcare.diseaserules", "pk":24, "fields":{"disease":7, "nutrient":13, "rule_type":"ABSOLUTE", "min_week":null, "max_week":2000.0, "note":"수분: 2000ml/일 미만"}}
-    
+    {"model":"healthcare.diseaserules", "pk":1, "fields":{"disease":1, "nutrient":1, 
+            "min_once":null, "max_once":null, "percent_min": null, "percent_max": 60,
+            "use_per_1000kcal": false, "per_1000kcal_min": null, "per_1000kcal_max": null, "note":"당뇨: 탄수화물 1회 열량비 60% 미만"}},
+    {"model":"healthcare.diseaserules", "pk":1, "fields":{"disease":1, "nutrient":2, 
+            "min_once":null, "max_once":20, "percent_min": null, "percent_max": null,
+            "use_per_1000kcal": false, "per_1000kcal_min": null, "per_1000kcal_max": null, "note":"당뇨: 당분 1회 제공량 20g 미만"}},
+    {"model":"healthcare.diseaserules", "pk":1, "fields":{"disease":1, "nutrient":4, 
+            "min_once":null, "max_once":null, "percent_min": null, "percent_max": 35,
+            "use_per_1000kcal": false, "per_1000kcal_min": null, "per_1000kcal_max": null, "note":"당뇨: 지방 1회 열량비 35% 미만"}},
+    {"model":"healthcare.diseaserules", "pk":1, "fields":{"disease":1, "nutrient":6, 
+            "min_once":6, "max_once":null, "percent_min": null, "percent_max": null,
+            "use_per_1000kcal": true, "per_1000kcal_min": 14000, "per_1000kcal_max": null, "note":"당뇨: 섬유질 1회 제공량 6g 이상, 14000mg/1,000kcal 이상"}}
 ]

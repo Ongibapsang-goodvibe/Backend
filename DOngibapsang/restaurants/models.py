@@ -14,6 +14,7 @@ class Restaurant(models.Model):
 
     district_name = models.CharField(max_length=40, help_text="표시용 동명(예: 연희동)")
     district_code = models.CharField(max_length=10)
+    delivery_time = models.IntegerField(default=0, help_text="분 단위, 근처 식당 주문이므로 1시간이 넘어가는 경우는 제외함..")
 
     def __str__(self):
         return self.name

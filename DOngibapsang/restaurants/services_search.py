@@ -18,6 +18,7 @@ def _build_cards(menus_qs, limit=10) -> List[Dict]:
             "restaurant_id": r.id,
             "restaurant_name": r.name,
             "delivery_fee": r.delivery_fee,
+            "delivery_time":r.delivery_time,
             "image_url": img,
         })
     return cards

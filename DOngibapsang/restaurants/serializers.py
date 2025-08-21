@@ -18,6 +18,7 @@ class MenuCardSerializer(serializers.Serializer):
     restaurant_id = serializers.IntegerField()
     restaurant_name = serializers.CharField()  # ← 문자열이어야 함
     delivery_fee = serializers.IntegerField()
+    delivery_time = serializers.IntegerField()
     image_url = serializers.CharField(allow_null=True)
 
  

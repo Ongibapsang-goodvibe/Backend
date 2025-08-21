@@ -8,6 +8,7 @@
       "district_code": "3120000",
       "phone": "02-3549-4021",
       "delivery_fee": 1500,
+      "delivery_time": 30,
       "image": ""
     }
   },
@@ -20,6 +21,7 @@
       "district_code": "3120000",
       "phone": "02-4880-5054",
       "delivery_fee": 1500,
+      "delivery_time": 20,
       "image": ""
     }
   },
@@ -32,6 +34,7 @@
       "district_code": "3120000",
       "phone": "02-7971-1677",
       "delivery_fee": 1000,
+      "delivery_time": 25,
       "image": ""
     }
   },
@@ -44,6 +47,7 @@
       "district_code": "3120000",
       "phone": "02-3995-8476",
       "delivery_fee": 2000,
+      "delivery_time": 15,
       "image": ""
     }
   },
@@ -56,6 +60,7 @@
       "district_code": "3120000",
       "phone": "02-5170-6931",
       "delivery_fee": 500,
+      "delivery_time": 45,
       "image": ""
     }
   },
@@ -68,6 +73,7 @@
       "district_code": "3120000",
       "phone": "02-6237-2607",
       "delivery_fee": 2000,
+      "delivery_time": 25,
       "image": ""
     }
   },
@@ -80,6 +86,7 @@
       "district_code": "3120000",
       "phone": "02-5540-1006",
       "delivery_fee": 2000,
+      "delivery_time": 25,
       "image": ""
     }
   },
@@ -92,6 +99,7 @@
       "district_code": "3120000",
       "phone": "02-9290-5858",
       "delivery_fee": 1000,
+      "delivery_time": 25,
       "image": ""
     }
   },
@@ -104,6 +112,7 @@
       "district_code": "3120000",
       "phone": "02-1641-9654",
       "delivery_fee": 500,
+      "delivery_time": 25,
       "image": ""
     }
   },
@@ -116,6 +125,7 @@
       "district_code": "3120000",
       "phone": "02-3522-6989",
       "delivery_fee": 500,
+      "delivery_time": 25,
       "image": ""
     }
   },
@@ -128,6 +138,7 @@
       "district_code": "3120000",
       "phone": "02-6079-6703",
       "delivery_fee": 1000,
+      "delivery_time": 25,
       "image": ""
     }
   },
@@ -140,6 +151,7 @@
       "district_code": "3120000",
       "phone": "02-1690-4091",
       "delivery_fee": 500,
+      "delivery_time": 25,
       "image": ""
     }
   },
@@ -152,6 +164,7 @@
       "district_code": "3120000",
       "phone": "02-3631-2034",
       "delivery_fee": 1000,
+      "delivery_time": 25,
       "image": ""
     }
   },
@@ -164,6 +177,7 @@
       "district_code": "3120000",
       "phone": "02-6116-8078",
       "delivery_fee": 1000,
+      "delivery_time": 25,
       "image": ""
     }
   },
@@ -176,6 +190,7 @@
       "district_code": "3120000",
       "phone": "02-8971-2700",
       "delivery_fee": 1000,
+      "delivery_time": 25,
       "image": ""
     }
   },
@@ -188,6 +203,7 @@
       "district_code": "3120000",
       "phone": "02-4798-2334",
       "delivery_fee": 2000,
+      "delivery_time": 25,
       "image": ""
     }
   },
@@ -200,6 +216,7 @@
       "district_code": "3120000",
       "phone": "02-9791-3382",
       "delivery_fee": 1500,
+      "delivery_time": 25,
       "image": ""
     }
   },
@@ -212,6 +229,7 @@
       "district_code": "3120000",
       "phone": "02-6273-4762",
       "delivery_fee": 2000,
+      "delivery_time": 25,
       "image": ""
     }
   },
@@ -224,6 +242,7 @@
       "district_code": "3120000",
       "phone": "02-8594-6486",
       "delivery_fee": 1000,
+      "delivery_time": 25,
       "image": ""
     }
   },
@@ -236,6 +255,7 @@
       "district_code": "3120000",
       "phone": "02-9557-8903",
       "delivery_fee": 500,
+      "delivery_time": 25,
       "image": ""
     }
   },
@@ -248,6 +268,7 @@
       "district_code": "3120000",
       "phone": "02-1542-7265",
       "delivery_fee": 2000,
+      "delivery_time": 25,
       "image": ""
     }
   },
@@ -260,6 +281,7 @@
       "district_code": "3120000",
       "phone": "02-1099-1977",
       "delivery_fee": 1000,
+      "delivery_time": 25,
       "image": ""
     }
   },
@@ -272,6 +294,7 @@
       "district_code": "3120000",
       "phone": "02-4199-8497",
       "delivery_fee": 2000,
+      "delivery_time": 25,
       "image": ""
     }
   },
@@ -284,6 +307,7 @@
       "district_code": "3120000",
       "phone": "02-6642-7503",
       "delivery_fee": 500,
+      "delivery_time": 25,
       "image": ""
     }
   },
@@ -296,6 +320,7 @@
       "district_code": "3120000",
       "phone": "02-8821-4178",
       "delivery_fee": 500,
+      "delivery_time": 25,
       "image": ""
     }
   },
@@ -308,6 +333,7 @@
       "district_code": "3120000",
       "phone": "02-1844-1085",
       "delivery_fee": 2000,
+      "delivery_time": 25,
       "image": ""
     }
   },
@@ -320,6 +346,7 @@
       "district_code": "3120000",
       "phone": "02-1216-5965",
       "delivery_fee": 500,
+      "delivery_time": 25,
       "image": ""
     }
   },
@@ -332,6 +359,7 @@
       "district_code": "3120000",
       "phone": "02-4092-4365",
       "delivery_fee": 2000,
+      "delivery_time": 25,
       "image": ""
     }
   },
@@ -344,6 +372,7 @@
       "district_code": "3120000",
       "phone": "02-4465-1469",
       "delivery_fee": 2000,
+      "delivery_time": 25,
       "image": ""
     }
   },
@@ -356,6 +385,7 @@
       "district_code": "3120000",
       "phone": "02-9420-6198",
       "delivery_fee": 2000,
+      "delivery_time": 25,
       "image": ""
     }
   },
@@ -368,6 +398,7 @@
       "district_code": "3120000",
       "phone": "02-9992-8327",
       "delivery_fee": 1500,
+      "delivery_time": 25,
       "image": ""
     }
   },
@@ -380,6 +411,7 @@
       "district_code": "3120000",
       "phone": "02-3104-6509",
       "delivery_fee": 500,
+      "delivery_time": 25,
       "image": ""
     }
   },
@@ -392,6 +424,7 @@
       "district_code": "3120000",
       "phone": "02-6393-3845",
       "delivery_fee": 1500,
+      "delivery_time": 25,
       "image": ""
     }
   },
@@ -404,6 +437,7 @@
       "district_code": "3120000",
       "phone": "02-7419-5057",
       "delivery_fee": 1500,
+      "delivery_time": 25,
       "image": ""
     }
   },
@@ -416,6 +450,7 @@
       "district_code": "3120000",
       "phone": "02-3814-7383",
       "delivery_fee": 1000,
+      "delivery_time": 25,
       "image": ""
     }
   },
@@ -428,6 +463,7 @@
       "district_code": "3120000",
       "phone": "02-4372-9427",
       "delivery_fee": 1500,
+      "delivery_time": 25,
       "image": ""
     }
   },
@@ -440,6 +476,7 @@
       "district_code": "3120000",
       "phone": "02-6000-7164",
       "delivery_fee": 500,
+      "delivery_time": 25,
       "image": ""
     }
   },
@@ -464,6 +501,7 @@
       "district_code": "3120000",
       "phone": "02-9255-4442",
       "delivery_fee": 500,
+      "delivery_time": 25,
       "image": ""
     }
   },
@@ -476,6 +514,7 @@
       "district_code": "3120000",
       "phone": "02-8927-2866",
       "delivery_fee": 2000,
+      "delivery_time": 25,
       "image": ""
     }
   },
@@ -488,6 +527,7 @@
       "district_code": "3120000",
       "phone": "02-8148-8502",
       "delivery_fee": 1500,
+      "delivery_time": 25,
       "image": ""
     }
   },
@@ -500,6 +540,7 @@
       "district_code": "3120000",
       "phone": "02-4560-4245",
       "delivery_fee": 2000,
+      "delivery_time": 25,
       "image": ""
     }
   },
@@ -512,6 +553,7 @@
       "district_code": "3120000",
       "phone": "02-7739-1146",
       "delivery_fee": 1500,
+      "delivery_time": 25,
       "image": ""
     }
   },
@@ -524,6 +566,7 @@
       "district_code": "3120000",
       "phone": "02-3470-8498",
       "delivery_fee": 1000,
+      "delivery_time": 25,
       "image": ""
     }
   },
@@ -536,6 +579,7 @@
       "district_code": "3120000",
       "phone": "02-1943-8372",
       "delivery_fee": 500,
+      "delivery_time": 25,
       "image": ""
     }
   },
@@ -548,6 +592,7 @@
       "district_code": "3120000",
       "phone": "02-5167-2077",
       "delivery_fee": 1500,
+      "delivery_time": 25,
       "image": ""
     }
   },
@@ -560,6 +605,7 @@
       "district_code": "3120000",
       "phone": "02-9379-1046",
       "delivery_fee": 500,
+      "delivery_time": 25,
       "image": ""
     }
   },
@@ -572,6 +618,7 @@
       "district_code": "3120000",
       "phone": "02-7066-3462",
       "delivery_fee": 500,
+      "delivery_time": 25,
       "image": ""
     }
   },
@@ -584,6 +631,7 @@
       "district_code": "3120000",
       "phone": "02-6854-4955",
       "delivery_fee": 1500,
+      "delivery_time": 25,
       "image": ""
     }
   },
@@ -596,6 +644,7 @@
       "district_code": "3120000",
       "phone": "02-4739-5203",
       "delivery_fee": 1500,
+      "delivery_time": 25,
       "image": ""
     }
   },
@@ -608,6 +657,7 @@
       "district_code": "3120000",
       "phone": "02-2990-3443",
       "delivery_fee": 500,
+      "delivery_time": 25,
       "image": ""
     }
   },
@@ -620,6 +670,7 @@
       "district_code": "3120000",
       "phone": "02-6206-2881",
       "delivery_fee": 1000,
+      "delivery_time": 25,
       "image": ""
     }
   },
@@ -632,6 +683,7 @@
       "district_code": "3120000",
       "phone": "02-7903-1006",
       "delivery_fee": 1000,
+      "delivery_time": 25,
       "image": ""
     }
   },
@@ -644,6 +696,7 @@
       "district_code": "3120000",
       "phone": "02-8341-9590",
       "delivery_fee": 2000,
+      "delivery_time": 25,
       "image": ""
     }
   },
@@ -656,6 +709,7 @@
       "district_code": "3120000",
       "phone": "02-1304-2546",
       "delivery_fee": 2000,
+      "delivery_time": 25,
       "image": ""
     }
   },
@@ -668,6 +722,7 @@
       "district_code": "3120000",
       "phone": "02-6405-9389",
       "delivery_fee": 500,
+      "delivery_time": 25,
       "image": ""
     }
   },
@@ -680,6 +735,7 @@
       "district_code": "3120000",
       "phone": "02-1282-3361",
       "delivery_fee": 1500,
+      "delivery_time": 25,
       "image": ""
     }
   },
@@ -692,6 +748,7 @@
       "district_code": "3120000",
       "phone": "02-3016-1744",
       "delivery_fee": 500,
+      "delivery_time": 25,
       "image": ""
     }
   },
@@ -704,6 +761,7 @@
       "district_code": "3120000",
       "phone": "02-2748-8801",
       "delivery_fee": 500,
+      "delivery_time": 35,
       "image": ""
     }
   },
@@ -716,6 +774,7 @@
       "district_code": "3120000",
       "phone": "02-4436-7394",
       "delivery_fee": 2000,
+      "delivery_time": 35,
       "image": ""
     }
   },
@@ -728,6 +787,7 @@
       "district_code": "3120000",
       "phone": "02-7350-7962",
       "delivery_fee": 1000,
+      "delivery_time": 35,
       "image": ""
     }
   },
@@ -740,6 +800,7 @@
       "district_code": "3120000",
       "phone": "02-6641-3648",
       "delivery_fee": 500,
+      "delivery_time": 35,
       "image": ""
     }
   },
@@ -752,6 +813,7 @@
       "district_code": "3120000",
       "phone": "02-9346-3089",
       "delivery_fee": 1000,
+      "delivery_time": 35,
       "image": ""
     }
   },
@@ -764,6 +826,7 @@
       "district_code": "3120000",
       "phone": "02-5136-5254",
       "delivery_fee": 1500,
+      "delivery_time": 35,
       "image": ""
     }
   },
@@ -776,6 +839,7 @@
       "district_code": "3120000",
       "phone": "02-4441-7710",
       "delivery_fee": 1500,
+      "delivery_time": 35,
       "image": ""
     }
   },
@@ -788,6 +852,7 @@
       "district_code": "3120000",
       "phone": "02-3608-4948",
       "delivery_fee": 1500,
+      "delivery_time": 35,
       "image": ""
     }
   },
@@ -800,6 +865,7 @@
       "district_code": "3120000",
       "phone": "02-7388-8518",
       "delivery_fee": 500,
+      "delivery_time": 35,
       "image": ""
     }
   },
@@ -812,6 +878,7 @@
       "district_code": "3120000",
       "phone": "02-7874-6528",
       "delivery_fee": 1000,
+      "delivery_time": 35,
       "image": ""
     }
   },
@@ -824,6 +891,7 @@
       "district_code": "3120000",
       "phone": "02-7367-3415",
       "delivery_fee": 1000,
+      "delivery_time": 35,
       "image": ""
     }
   },
@@ -836,6 +904,7 @@
       "district_code": "3120000",
       "phone": "02-1024-4907",
       "delivery_fee": 500,
+      "delivery_time": 35,
       "image": ""
     }
   },
@@ -848,6 +917,7 @@
       "district_code": "3120000",
       "phone": "02-5983-9019",
       "delivery_fee": 1000,
+      "delivery_time": 35,
       "image": ""
     }
   },
@@ -860,6 +930,7 @@
       "district_code": "3120000",
       "phone": "02-2622-7692",
       "delivery_fee": 500,
+      "delivery_time": 35,
       "image": ""
     }
   },
@@ -872,6 +943,7 @@
       "district_code": "3120000",
       "phone": "02-4021-7481",
       "delivery_fee": 1000,
+      "delivery_time": 35,
       "image": ""
     }
   },
@@ -884,6 +956,7 @@
       "district_code": "3120000",
       "phone": "02-6795-7883",
       "delivery_fee": 500,
+      "delivery_time": 35,
       "image": ""
     }
   },
@@ -896,6 +969,7 @@
       "district_code": "3120000",
       "phone": "02-3730-1298",
       "delivery_fee": 1500,
+      "delivery_time": 35,
       "image": ""
     }
   },
@@ -908,6 +982,7 @@
       "district_code": "3120000",
       "phone": "02-4718-7356",
       "delivery_fee": 500,
+      "delivery_time": 35,
       "image": ""
     }
   },
@@ -920,6 +995,7 @@
       "district_code": "3120000",
       "phone": "02-4203-9932",
       "delivery_fee": 1000,
+      "delivery_time": 35,
       "image": ""
     }
   },
@@ -932,6 +1008,7 @@
       "district_code": "3120000",
       "phone": "02-5097-3026",
       "delivery_fee": 1000,
+      "delivery_time": 35,
       "image": ""
     }
   },
@@ -944,6 +1021,7 @@
       "district_code": "3120000",
       "phone": "02-2086-3773",
       "delivery_fee": 1500,
+      "delivery_time": 35,
       "image": ""
     }
   },
@@ -956,6 +1034,7 @@
       "district_code": "3120000",
       "phone": "02-1671-8006",
       "delivery_fee": 1500,
+      "delivery_time": 35,
       "image": ""
     }
   },
@@ -968,6 +1047,7 @@
       "district_code": "3120000",
       "phone": "02-2171-3872",
       "delivery_fee": 2000,
+      "delivery_time": 35,
       "image": ""
     }
   },
@@ -980,6 +1060,7 @@
       "district_code": "3120000",
       "phone": "02-4811-7230",
       "delivery_fee": 2000,
+      "delivery_time": 35,
       "image": ""
     }
   },
@@ -992,6 +1073,7 @@
       "district_code": "3120000",
       "phone": "02-8580-1161",
       "delivery_fee": 2000,
+      "delivery_time": 35,
       "image": ""
     }
   },
@@ -1004,6 +1086,7 @@
       "district_code": "3120000",
       "phone": "02-6106-3204",
       "delivery_fee": 1000,
+      "delivery_time": 35,
       "image": ""
     }
   },
@@ -1016,6 +1099,7 @@
       "district_code": "3120000",
       "phone": "02-5117-4774",
       "delivery_fee": 1500,
+      "delivery_time": 35,
       "image": ""
     }
   },
@@ -1028,6 +1112,7 @@
       "district_code": "3120000",
       "phone": "02-1764-4369",
       "delivery_fee": 1000,
+      "delivery_time": 35,
       "image": ""
     }
   },
@@ -1040,6 +1125,7 @@
       "district_code": "3120000",
       "phone": "02-1940-1481",
       "delivery_fee": 1000,
+      "delivery_time": 35,
       "image": ""
     }
   },
@@ -1052,6 +1138,7 @@
       "district_code": "3120000",
       "phone": "02-8251-1724",
       "delivery_fee": 1500,
+      "delivery_time": 35,
       "image": ""
     }
   },
@@ -1064,6 +1151,7 @@
       "district_code": "3120000",
       "phone": "02-4685-5720",
       "delivery_fee": 1000,
+      "delivery_time": 35,
       "image": ""
     }
   },
@@ -1076,6 +1164,7 @@
       "district_code": "3120000",
       "phone": "02-3175-5515",
       "delivery_fee": 2000,
+      "delivery_time": 45,
       "image": ""
     }
   },
@@ -1088,6 +1177,7 @@
       "district_code": "3120000",
       "phone": "02-5287-1949",
       "delivery_fee": 2000,
+      "delivery_time": 45,
       "image": ""
     }
   },
@@ -1100,6 +1190,7 @@
       "district_code": "3120000",
       "phone": "02-5133-9265",
       "delivery_fee": 500,
+      "delivery_time": 45,
       "image": ""
     }
   },
@@ -1112,6 +1203,7 @@
       "district_code": "3120000",
       "phone": "02-9053-9473",
       "delivery_fee": 1500,
+      "delivery_time": 45,
       "image": ""
     }
   },
@@ -1124,6 +1216,7 @@
       "district_code": "3120000",
       "phone": "02-6578-3001",
       "delivery_fee": 1500,
+      "delivery_time": 45,
       "image": ""
     }
   },
@@ -1136,6 +1229,7 @@
       "district_code": "3120000",
       "phone": "02-6053-8927",
       "delivery_fee": 1000,
+      "delivery_time": 45,
       "image": ""
     }
   },
@@ -1148,6 +1242,7 @@
       "district_code": "3120000",
       "phone": "02-2370-6897",
       "delivery_fee": 500,
+      "delivery_time": 45,
       "image": ""
     }
   },
@@ -1160,6 +1255,7 @@
       "district_code": "3120000",
       "phone": "02-6814-2109",
       "delivery_fee": 1500,
+      "delivery_time": 45,
       "image": ""
     }
   },
@@ -1172,6 +1268,7 @@
       "district_code": "3120000",
       "phone": "02-4628-4152",
       "delivery_fee": 2000,
+      "delivery_time": 45,
       "image": ""
     }
   },
@@ -1184,6 +1281,7 @@
       "district_code": "3120000",
       "phone": "02-1990-2970",
       "delivery_fee": 1000,
+      "delivery_time": 45,
       "image": ""
     }
   },
@@ -1196,6 +1294,7 @@
       "district_code": "3120000",
       "phone": "02-2920-3249",
       "delivery_fee": 2000,
+      "delivery_time": 45,
       "image": ""
     }
   },
@@ -1208,6 +1307,7 @@
       "district_code": "3120000",
       "phone": "02-7241-4407",
       "delivery_fee": 500,
+      "delivery_time": 45,
       "image": ""
     }
   },
@@ -1220,6 +1320,7 @@
       "district_code": "3120000",
       "phone": "02-9621-7321",
       "delivery_fee": 1000,
+      "delivery_time": 45,
       "image": ""
     }
   },
@@ -1232,6 +1333,7 @@
       "district_code": "3120000",
       "phone": "02-3040-2607",
       "delivery_fee": 2000,
+      "delivery_time": 45,
       "image": ""
     }
   },
@@ -1244,6 +1346,7 @@
       "district_code": "3120000",
       "phone": "02-1238-9785",
       "delivery_fee": 1000,
+      "delivery_time": 45,
       "image": ""
     }
   },
@@ -1256,6 +1359,7 @@
       "district_code": "3120000",
       "phone": "02-7138-2518",
       "delivery_fee": 500,
+      "delivery_time": 45,
       "image": ""
     }
   },
@@ -1268,6 +1372,7 @@
       "district_code": "3120000",
       "phone": "02-6935-3329",
       "delivery_fee": 2000,
+      "delivery_time": 45,
       "image": ""
     }
   },
@@ -1280,6 +1385,7 @@
       "district_code": "3120000",
       "phone": "02-5203-6978",
       "delivery_fee": 1000,
+      "delivery_time": 45,
       "image": ""
     }
   },
@@ -1292,6 +1398,7 @@
       "district_code": "3120000",
       "phone": "02-7777-9568",
       "delivery_fee": 1500,
+      "delivery_time": 45,
       "image": ""
     }
   },
@@ -1304,6 +1411,7 @@
       "district_code": "3120000",
       "phone": "02-6672-3754",
       "delivery_fee": 1500,
+      "delivery_time": 45,
       "image": ""
     }
   },
@@ -1316,6 +1424,7 @@
       "district_code": "3120000",
       "phone": "02-1053-9266",
       "delivery_fee": 2000,
+      "delivery_time": 45,
       "image": ""
     }
   },
@@ -1328,6 +1437,7 @@
       "district_code": "3120000",
       "phone": "02-9859-4827",
       "delivery_fee": 1500,
+      "delivery_time": 45,
       "image": ""
     }
   },
@@ -1340,6 +1450,7 @@
       "district_code": "3120000",
       "phone": "02-3769-8364",
       "delivery_fee": 1000,
+      "delivery_time": 45,
       "image": ""
     }
   },
@@ -1352,6 +1463,7 @@
       "district_code": "3120000",
       "phone": "02-5252-8466",
       "delivery_fee": 1000,
+      "delivery_time": 45,
       "image": ""
     }
   },
@@ -1364,6 +1476,7 @@
       "district_code": "3120000",
       "phone": "02-2742-5194",
       "delivery_fee": 2000,
+      "delivery_time": 45,
       "image": ""
     }
   },
@@ -1376,6 +1489,7 @@
       "district_code": "3120000",
       "phone": "02-1122-4465",
       "delivery_fee": 1000,
+      "delivery_time": 45,
       "image": ""
     }
   },
@@ -1388,6 +1502,7 @@
       "district_code": "3120000",
       "phone": "02-3320-7624",
       "delivery_fee": 2000,
+      "delivery_time": 45,
       "image": ""
     }
   },
@@ -1400,6 +1515,7 @@
       "district_code": "3120000",
       "phone": "02-9283-3831",
       "delivery_fee": 2000,
+      "delivery_time": 45,
       "image": ""
     }
   },
@@ -1412,6 +1528,7 @@
       "district_code": "3120000",
       "phone": "02-1954-4567",
       "delivery_fee": 2000,
+      "delivery_time": 45,
       "image": ""
     }
   },
@@ -1424,6 +1541,7 @@
       "district_code": "3120000",
       "phone": "02-3985-1034",
       "delivery_fee": 2000,
+      "delivery_time": 45,
       "image": ""
     }
   },
@@ -1436,6 +1554,7 @@
       "district_code": "3120000",
       "phone": "02-8609-5123",
       "delivery_fee": 2000,
+      "delivery_time": 45,
       "image": ""
     }
   },
@@ -1448,6 +1567,7 @@
       "district_code": "3120000",
       "phone": "02-3772-9372",
       "delivery_fee": 500,
+      "delivery_time": 45,
       "image": ""
     }
   },
@@ -1460,6 +1580,7 @@
       "district_code": "3120000",
       "phone": "02-4734-7072",
       "delivery_fee": 500,
+      "delivery_time": 45,
       "image": ""
     }
   },
@@ -1472,6 +1593,7 @@
       "district_code": "3120000",
       "phone": "02-8440-7512",
       "delivery_fee": 2000,
+      "delivery_time": 20,
       "image": ""
     }
   },
@@ -1484,6 +1606,7 @@
       "district_code": "3120000",
       "phone": "02-5854-2283",
       "delivery_fee": 1000,
+      "delivery_time": 20,
       "image": ""
     }
   },
@@ -1496,6 +1619,7 @@
       "district_code": "3120000",
       "phone": "02-4360-6672",
       "delivery_fee": 2000,
+      "delivery_time": 20,
       "image": ""
     }
   },
@@ -1508,6 +1632,7 @@
       "district_code": "3120000",
       "phone": "02-9891-3940",
       "delivery_fee": 1500,
+      "delivery_time": 20,
       "image": ""
     }
   },
@@ -1520,6 +1645,7 @@
       "district_code": "3120000",
       "phone": "02-9106-9837",
       "delivery_fee": 1500,
+      "delivery_time": 20,
       "image": ""
     }
   },
@@ -1532,6 +1658,7 @@
       "district_code": "3120000",
       "phone": "02-1294-6721",
       "delivery_fee": 1000,
+      "delivery_time": 20,
       "image": ""
     }
   },
@@ -1544,6 +1671,7 @@
       "district_code": "3120000",
       "phone": "02-6501-1197",
       "delivery_fee": 1500,
+      "delivery_time": 20,
       "image": ""
     }
   },
@@ -1556,6 +1684,7 @@
       "district_code": "3120000",
       "phone": "02-5914-7663",
       "delivery_fee": 1000,
+      "delivery_time": 20,
       "image": ""
     }
   },
@@ -1568,6 +1697,7 @@
       "district_code": "3120000",
       "phone": "02-6850-8458",
       "delivery_fee": 1500,
+      "delivery_time": 20,
       "image": ""
     }
   },
@@ -1580,6 +1710,7 @@
       "district_code": "3120000",
       "phone": "02-4546-7590",
       "delivery_fee": 1500,
+      "delivery_time": 20,
       "image": ""
     }
   },
@@ -1592,6 +1723,7 @@
       "district_code": "3120000",
       "phone": "02-1629-2552",
       "delivery_fee": 1000,
+      "delivery_time": 20,
       "image": ""
     }
   },
@@ -1604,6 +1736,7 @@
       "district_code": "3120000",
       "phone": "02-3681-8221",
       "delivery_fee": 2000,
+      "delivery_time": 20,
       "image": ""
     }
   },
@@ -1616,6 +1749,7 @@
       "district_code": "3120000",
       "phone": "02-3297-5857",
       "delivery_fee": 500,
+      "delivery_time": 20,
       "image": ""
     }
   },
@@ -1628,6 +1762,7 @@
       "district_code": "3120000",
       "phone": "02-8172-2551",
       "delivery_fee": 1500,
+      "delivery_time": 20,
       "image": ""
     }
   },
@@ -1640,6 +1775,7 @@
       "district_code": "3120000",
       "phone": "02-9260-7227",
       "delivery_fee": 2000,
+      "delivery_time": 20,
       "image": ""
     }
   },
@@ -1652,6 +1788,7 @@
       "district_code": "3120000",
       "phone": "02-2917-2093",
       "delivery_fee": 1000,
+      "delivery_time": 20,
       "image": ""
     }
   },
@@ -1664,6 +1801,7 @@
       "district_code": "3120000",
       "phone": "02-6399-2780",
       "delivery_fee": 1000,
+      "delivery_time": 20,
       "image": ""
     }
   },
@@ -1676,6 +1814,7 @@
       "district_code": "3120000",
       "phone": "02-6819-1105",
       "delivery_fee": 2000,
+      "delivery_time": 20,
       "image": ""
     }
   },
@@ -1688,6 +1827,7 @@
       "district_code": "3120000",
       "phone": "02-1351-6080",
       "delivery_fee": 2000,
+      "delivery_time": 20,
       "image": ""
     }
   }

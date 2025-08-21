@@ -84,20 +84,29 @@ def _collect_rules(user: User) -> dict:
     for r in rules_qs:
         code = r.nutrient.code  # id 기반 가능
         cur = merged.setdefault(code, {
-            "abs_min_week_g": None,
-            "abs_max_week_g": None,
+            "abs_min_once_g": None,
+            "abs_max_once_g": None,
             "percent_min": None,
             "percent_max": None,
             "per_1000kcal": r.use_per_1000kcal,
+            "per_1000kcal_min_g": None,
+            "per_1000kcal_max_g": None,
         })
 
-        if r.min_week is not None:
-            g = float(r.min_week) / 1000.0
-            cur["abs_min_week_g"] = g if cur["abs_min_week_g"] is None else max(cur["abs_min_week_g"], g)
-        if r.max_week is not None:
-            g = float(r.max_week) / 1000.0
-            cur["abs_max_week_g"] = g if cur["abs_max_week_g"] is None else min(cur["abs_max_week_g"], g)
+        if r.min_once is not None:
+            g = float(r.min_once) / 1000.0  # mg → g
+            if r.use_per_1000kcal:
+                cur["per_1000kcal_min_g"] = g if cur["per_1000kcal_min_g"] is None else max(cur["per_1000kcal_min_g"], g)
+            else:
+                cur["abs_min_once_g"] = g if cur["abs_min_once_g"] is None else max(cur["abs_min_once_g"], g)
 
+        if r.max_once is not None:
+            g = float(r.max_once) / 1000.0  # mg → g
+            if r.use_per_1000kcal:
+                cur["per_1000kcal_max_g"] = g if cur["per_1000kcal_max_g"] is None else min(cur["per_1000kcal_max_g"], g)
+            else:
+                cur["abs_max_once_g"] = g if cur["abs_max_once_g"] is None else min(cur["abs_max_once_g"], g)
+        
         if r.percent_min is not None:
             p = float(r.percent_min)
             cur["percent_min"] = p if cur["percent_min"] is None else max(cur["percent_min"], p)
@@ -113,8 +122,8 @@ def _collect_rules(user: User) -> dict:
 
 def main_recommend(user: User, limit: int = 10) -> dict:
     rules = _collect_rules(user)
-
     since = timezone.now() - timedelta(days=7)
+
     orders = Order.objects.filter(user=user, time__gte=since).select_related("menu").prefetch_related(
         Prefetch("menu__menu_nutritions", queryset=MenuNutrition.objects.select_related("nutrient"))
     )
@@ -134,6 +143,7 @@ def main_recommend(user: User, limit: int = 10) -> dict:
     # 숫자형 값만 처리
             try:
                 totals_g[c] += float(g) * qty
+                total_kcal += float(kcal) * qty
             except (ValueError, TypeError):
                 # 숫자가 아니면 무시
                 continue
@@ -149,30 +159,56 @@ def main_recommend(user: User, limit: int = 10) -> dict:
         grams, kcal = _menu_nutrients_g_and_energy(m)
         violated = None
 
+        #1차: 1회 제공량 기준    
+        for code, rule in rules.items():
+            once_max = rule.get("abs_max_once_g")
+            if once_max is not None and grams.get(code, 0.0) > once_max:
+                violated = f"{code}: exceeds abs_max_once_g {once_max}g"
+                break
+        if violated:
+            avoided.append({"menu_id": m.id, "menu_name": m.name, "reason": violated})
+            continue
+
+        #2차: 1000kcal 당 mg 기준
         for code, rule in rules.items():
             if not rule.get("per_1000kcal"):
-                continue  # 1000kcal 기준만 체크
-
+                continue
             kcal_factor = kcal / 1000.0 if kcal > 0 else 1.0
-            add_kcal = _kcal_of(code, grams.get(code, 0.0))
-            ratio = add_kcal / (kcal_factor * 1000) * 100  # %
-
-            if rule.get("percent_max") is not None and ratio > rule["percent_max"]:
-                violated = f"{code}: per_1000kcal percent>{rule['percent_max']:.1f}%"
+            g_per_1000kcal = grams.get(code, 0.0) / kcal_factor
+            per_1000kcal_min = rule.get("per_1000kcal_min_g")
+            per_1000kcal_max = rule.get("per_1000kcal_max_g")
+            if per_1000kcal_min is not None and g_per_1000kcal < per_1000kcal_min:
+                violated = f"{code}: per_1000kcal < {per_1000kcal_min:.3f}g"
                 break
-            if rule.get("percent_min") is not None and ratio < rule["percent_min"]:
-                violated = f"{code}: per_1000kcal percent<{rule['percent_min']:.1f}%"
+            if per_1000kcal_max is not None and g_per_1000kcal > per_1000kcal_max:
+                violated = f"{code}: per_1000kcal > {per_1000kcal_max:.3f}g"
                 break
 
         if violated:
-            avoided.append({
-                "menu_id": m.id,
-                "menu_name": m.name,
-                "reason": violated
-            })
+            avoided.append({"menu_id": m.id, "menu_name": m.name, "reason": violated})
             continue
 
         candidates.append((m, grams, kcal))
+
+        #3차: 총 열량 대비 탄단지 비율
+        for code, rule in rules.items():
+            if rule.get("per_1000kcal"):
+                continue
+            min_percent = rule.get("percent_min")
+            max_percent = rule.get("percent_max")
+            nutrient_kcal = _kcal_of(code, grams.get(code, 0.0))
+            ratio = (nutrient_kcal / kcal * 100) if kcal > 0 else 0
+            if min_percent is not None and ratio < min_percent:
+                violated = f"{code}: percent<{min_percent:.1f}%"
+                break
+            if max_percent is not None and ratio > max_percent:
+                violated = f"{code}: percent>{max_percent:.1f}%"
+                break
+
+        if violated:
+            avoided.append({"menu_id": m.id, "menu_name": m.name, "reason": violated})
+            continue
+
 
     # 부족분 점수 계산
     scored = []
@@ -182,7 +218,7 @@ def main_recommend(user: User, limit: int = 10) -> dict:
             if rule.get("per_1000kcal"):
                 continue  # 1000kcal 기준만 적용, 부족분 계산 제외
 
-            abs_min = rule.get("abs_min_week_g")
+            abs_min = rule.get("abs_min_once_g")
             if abs_min is not None:
                 deficit = max(0.0, abs_min - totals_g.get(code, 0.0))
                 score += min(deficit, grams.get(code, 0.0))
@@ -217,7 +253,7 @@ def main_recommend(user: User, limit: int = 10) -> dict:
             "delivery_fee": r.delivery_fee,
             "image_url": menu.image.url if getattr(menu, "image", None) else None,
             "energy_kcal": round(kcal, 1),
-            "macro_percent": _macro_energy_breakdown_percent(grams, kcal),
+            "macro_percent": _macro_energy_breakdown_percent(grams, kcal), #탄단지 퍼센트
         }
 
     return {

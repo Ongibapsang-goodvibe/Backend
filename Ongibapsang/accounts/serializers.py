@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth import authenticate
 from .models import *
+from healthcare.models import Disease
 
 #로그인 시리얼라이저
 class LoginSerializer(serializers.Serializer):
@@ -17,9 +18,13 @@ class LoginSerializer(serializers.Serializer):
         attrs["user"] = user
         return attrs
 
+#질환 시리얼라이저
+class DiseaseSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Disease
+        fields = ("id", "name")
 
 
-#질환 시리얼라이저 
 class UserDiseaseSerializer(serializers.ModelSerializer):
     # disease_id 배열로 받기
     disease_id = serializers.PrimaryKeyRelatedField(
@@ -27,20 +32,25 @@ class UserDiseaseSerializer(serializers.ModelSerializer):
         queryset=Disease.objects.all(),
         many=True
     )
+    # 읽기용 (상세 정보)
+    diseases_detail = DiseaseSerializer(source="diseases", many=True, read_only=True)
 
     class Meta:
         model = User
-        fields = ["id", "disease_id"]
+        fields = ["id", "disease_id","diseases_detail"]
 
     def update(self, instance, validated_data):
         diseases = validated_data.pop("diseases", None)
         if diseases is not None:
             instance.diseases.set(diseases)   # 전체 교체
-        return instance
-    
+        return super().update(instance, validated_data)
 
 # 유저 정보 시리얼라이저 
 class UserSerializer(serializers.ModelSerializer):
+    diseases = UserDiseaseSerializer(many=True, read_only=True)
+    disease_ids = serializers.PrimaryKeyRelatedField(many=True, write_only=True, queryset=Disease.objects.all(), source="disease")
+
     class Meta:
         model = User
-        fields = ["id", "username", "district_name"]
+        fields = ("id", "username", "diseases", "disease_ids")
+

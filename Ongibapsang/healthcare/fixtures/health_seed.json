@@ -1,0 +1,22 @@
+[
+    {"model":"healthcare.disease", "pk":1, "fields":{"name":"당뇨"}},
+    {"model":"healthcare.disease", "pk":2, "fields":{"name":"콩팥(신장)질환"}},
+    {"model":"healthcare.disease", "pk":3, "fields":{"name":"치아 불편"}},
+    {"model":"healthcare.disease", "pk":4, "fields":{"name":"고혈압"}},
+    {"model":"healthcare.disease", "pk":5, "fields":{"name":"위장 질환"}},
+    {"model":"healthcare.disease", "pk":6, "fields":{"name":"관절염"}},
+    {"model":"healthcare.disease", "pk":7, "fields":{"name":"심부전"}},
+
+    {"model":"healthcare.diseaserules", "pk":1, "fields":{"disease":1, "nutrient":1, 
+            "min_once":null, "max_once":null, "percent_min": null, "percent_max": 60,
+            "use_per_1000kcal": false, "per_1000kcal_min": null, "per_1000kcal_max": null, "note":"당뇨: 탄수화물 1회 열량비 60% 미만"}},
+    {"model":"healthcare.diseaserules", "pk":1, "fields":{"disease":1, "nutrient":2, 
+            "min_once":null, "max_once":20, "percent_min": null, "percent_max": null,
+            "use_per_1000kcal": false, "per_1000kcal_min": null, "per_1000kcal_max": null, "note":"당뇨: 당분 1회 제공량 20g 미만"}},
+    {"model":"healthcare.diseaserules", "pk":1, "fields":{"disease":1, "nutrient":4, 
+            "min_once":null, "max_once":null, "percent_min": null, "percent_max": 35,
+            "use_per_1000kcal": false, "per_1000kcal_min": null, "per_1000kcal_max": null, "note":"당뇨: 지방 1회 열량비 35% 미만"}},
+    {"model":"healthcare.diseaserules", "pk":1, "fields":{"disease":1, "nutrient":6, 
+            "min_once":6, "max_once":null, "percent_min": null, "percent_max": null,
+            "use_per_1000kcal": true, "per_1000kcal_min": 14000, "per_1000kcal_max": null, "note":"당뇨: 섬유질 1회 제공량 6g 이상, 14000mg/1,000kcal 이상"}}
+]

@@ -11,16 +11,21 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+import os
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+load_dotenv(os.path.join(BASE_DIR, '.env')) # .env파일 로드
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-w(=$8t$nm3@s8=!7#c)*vi_=#&jf4im#x0h3bsf7%f_hi6ncx$'
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'django-insecure-default-key')  #기본값 제공
+#!!!!주의!!!! 배포 시 .env에서 DJANGO_SECRET_KEY를 반드시 설정해야 함
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -48,6 +53,9 @@ INSTALLED_APPS = [
     'deliveryreview',
     'orders',
     'healthcare',
+    'django.contrib.humanize',
+    'django_filters',
+    'chat',
 ]
 
 
@@ -66,6 +74,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 CORS_ALLOWED_ORIGINS = [
@@ -139,3 +148,12 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
+
+AUTH_USER_MODEL = 'accounts.User'
+
+ASGI_APPLICATION = 'Ongibapsang.asgi.application'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

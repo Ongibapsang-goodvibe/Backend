@@ -4,7 +4,6 @@ from django.conf import settings
 from django.core.validators import RegexValidator
 from healthcare.models import Disease
 
-
 # Create your models here.
 # 어르신 사용자 모델
 class User(AbstractUser):
@@ -12,9 +11,8 @@ class User(AbstractUser):
     address = models.CharField(max_length=100, default="")
     district_name = models.CharField(max_length=40, help_text="표시용 동명(예: 연희동)", null=True, blank=True)
     district_code = models.CharField(max_length=10, default=0)
-
     diseases = models.ManyToManyField(
-        Disease,
+        "healthcare.Disease",
         related_name="users",
         blank=True,
         help_text="사용자가 보유한 질환"

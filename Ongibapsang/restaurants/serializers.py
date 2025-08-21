@@ -10,9 +10,11 @@ class SearchInputSerializer(serializers.Serializer):
 class MenuCardSerializer(serializers.ModelSerializer):
     menu_id = serializers.IntegerField(source="id", read_only=True)
     menu_name = serializers.CharField(source="name", read_only=True)
+    price = serializers.IntegerField(allow_null=True)
     restaurant_id = serializers.IntegerField(source="restaurant.id", read_only=True)
     restaurant_name = serializers.CharField(source="restaurant.name", read_only=True)
     delivery_fee = serializers.IntegerField(source="restaurant.delivery_fee", read_only=True)
+    delivery_time = serializers.IntegerField()
     image_url = serializers.SerializerMethodField()
 
     class Meta:

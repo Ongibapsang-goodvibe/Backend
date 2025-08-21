@@ -1,7 +1,4 @@
-# restaurant/models.py
 from django.db import models
-from django.core.validators import RegexValidator
-
 
 class Restaurant(models.Model):
     name = models.CharField(max_length=100)
@@ -10,9 +7,11 @@ class Restaurant(models.Model):
     image = models.ImageField(upload_to='restaurant_images/', null=True, blank=True)
     # name_initials = models.CharField(max_length=100, db_index=True, blank=True, default="")
     delivery_fee = models.IntegerField(default=0)
+    delivery_time = models.IntegerField(default=0, help_text="분 단위, 근처 식당 주문이므로 1시간이 넘어가는 경우는 제외함..")
 
     district_name = models.CharField(max_length=40, help_text="표시용 동명(예: 연희동)")
     district_code = models.CharField(max_length=10, default=0)
+
 
     def __str__(self):
         return self.name
@@ -34,7 +33,6 @@ class Nutrient(models.Model):
     def __str__(self):
         return f"{self.name}({self.unit})"
     
-
 class MenuNutrition(models.Model):
     #메뉴 1회 제공량 기준 영양성분
     menu = models.ForeignKey("restaurants.Menu", on_delete=models.CASCADE, related_name="menu_nutritions")
@@ -46,7 +44,6 @@ class MenuNutrition(models.Model):
 
     def __str__(self):
         return f"{self.menu.name} | {self.nutrient.name} : {self.amount}{self.nutrient.unit}"
-
 
 
 class Menu(models.Model):
@@ -62,7 +59,6 @@ class Menu(models.Model):
     # name_initials = models.CharField(max_length=100, db_index=True, blank=True, default="")
     image = models.ImageField(upload_to='restaurant_images/', null=True, blank=True)
     price = models.IntegerField(default=0)
-
 
     ingredients = models.ManyToManyField(Ingredient, related_name="menus", blank=True)
 

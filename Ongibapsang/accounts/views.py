@@ -49,15 +49,14 @@ class LogoutView(APIView):
 
 User = get_user_model()
 #질환 처음 저장 
-# views.py
 class DiseaseUpdateView(generics.UpdateAPIView):
     queryset = User.objects.all()
     serializer_class = UserDiseaseSerializer
-    permission_classes = [AllowAny]   # 로그인 가정이면 IsAuthenticated
+    permission_classes = [IsAuthenticated]   # 로그인 가정이면 IsAuthenticated
 
    
 class UserView(APIView):
-    permission_classes = [AllowAny] 
+    permission_classes = [IsAuthenticated] 
 
     def get(self, request):
         serializers = UserSerializer(request.user)

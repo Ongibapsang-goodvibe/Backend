@@ -101,3 +101,21 @@ class ReadOrderSerializer(serializers.ModelSerializer):
         df = int(getattr(obj.menu.restaurant, "delivery_fee", 0) or 0)
         qty = int(getattr(obj, "quantity", 1) or 1)
         return (mp + df) * qty
+
+
+#결제 금액, 배달 시간 계산용 시리얼라이저 
+class MenuInputSerializer(serializers.Serializer):
+    restaurant_id = serializers.IntegerField()
+    menu_id = serializers.IntegerField()
+    qty = serializers.IntegerField(min_value=1, default=1, required=False)  # 옵션
+
+
+class OutputSerializer(serializers.Serializer):
+    order_amount = serializers.IntegerField()
+    delivery_fee = serializers.IntegerField()
+    small_order_fee = serializers.IntegerField()
+    total = serializers.IntegerField()
+    ordered_at = serializers.DateTimeField()
+    eta_minutes = serializers.IntegerField()
+    eta_at = serializers.DateTimeField()
+    eta_text = serializers.CharField()

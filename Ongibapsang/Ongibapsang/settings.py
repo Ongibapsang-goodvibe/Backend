@@ -30,7 +30,7 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'django-insecure-default-key')  #기
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["127.0.0.1", "localhost", "abf4b77eec55.ngrok-free.app"]
+ALLOWED_HOSTS = ["127.0.0.1", "localhost", "b8643e1c459f.ngrok-free.app"]
 
 AUTH_USER_MODEL = "accounts.User"
 
@@ -82,7 +82,9 @@ MIDDLEWARE = [
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5174",  # Vite
     "http://127.0.0.1:5174",
-    "https://abf4b77eec55.ngrok-free.app"
+    "http://localhost:5173",  # Vite
+    "http://127.0.0.1:5173",
+    "https://b8643e1c459f.ngrok-free.app",
     
     # 같은 와이파이에서 프론트가 다른 PC라면(예: 프론트 PC IP가 192.168.0.23)
     # "http://192.168.0.23:5173",

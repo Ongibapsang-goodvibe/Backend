@@ -249,7 +249,7 @@ class LastWeekNutritionReport(APIView):
             # 확정 저장
             report.total_nutrients = dict(analysis["total_g"])
             report.macro_percent = analysis["nutrient_percent"]
-            report.weekly_recommendation = analysis["weekly_recommendation"]
+            report.weekly_recommend = analysis["weekly_recommend"]
             report.note = ai_feedback
             report.save()
 
@@ -293,7 +293,7 @@ class HealthReportView(APIView):
         start, now = monday_to_now()
 
         logs = HealthcareLog.objects.filter(
-            #user=user,
+            user=user,
             created_at__gte=start, #last_monday,
             created_at__lt=now #this_monday
         )
@@ -328,7 +328,7 @@ class HealthReportView(APIView):
             "period_start": start, #last_monday,
             "period_end": now - timezone.timedelta(days=1), #this_monday
             "bad_count": bad_count,
-            "bad_logs": bad_logs_serializer,
+            "bad_logs": bad_logs,
             "dominant_mood": dominant_mood,
             "mood_counts": mood_counts,
             "weekday_bad_texts": dict(weekday_bad_texts),

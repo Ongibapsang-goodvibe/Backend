@@ -3,7 +3,6 @@ from .views import *
 
 app_name = "orders"
 urlpatterns = [
-    path("logs/", OrderListView.as_view(), name="orderList"),
     path("make/", MakeOrderView.as_view(), name="makeorders"),
     path("delete/<int:id>", DeleteOrderView.as_view(), name="deleteorder"),
     path("list/", OrderListView.as_view(), name="listorders"),

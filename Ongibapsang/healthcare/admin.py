@@ -12,3 +12,7 @@ class DiseaseAdmin(admin.ModelAdmin):
 class DiseaseRulesAdmin(admin.ModelAdmin):
     list_display = ("id", "disease", "nutrient", "min_once", "max_once", "percent_min", "percent_max", "per_1000kcal_min", "per_1000kcal_max")
     list_filter = ("disease", "nutrient")  
+
+@admin.register(NutritionReport)
+class NutritionReportAdmin(admin.ModelAdmin):
+    list_display  = ("id", "user", "disease", "date")

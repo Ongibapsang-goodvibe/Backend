@@ -175,11 +175,13 @@ def main_recommend(user: User, limit: int = 10) -> dict:
                 continue
             kcal_factor = kcal / 1000.0 if kcal > 0 else 1.0
             g_per_1000kcal = grams.get(code, 0.0) / kcal_factor
-            per_1000kcal_min = rule.get("per_1000kcal_min_g")
+            #per_1000kcal_min = rule.get("per_1000kcal_min_g")
             per_1000kcal_max = rule.get("per_1000kcal_max_g")
+            """
             if per_1000kcal_min is not None and g_per_1000kcal < per_1000kcal_min:
                 violated = f"{code}: per_1000kcal < {per_1000kcal_min:.3f}g"
                 break
+            """
             if per_1000kcal_max is not None and g_per_1000kcal > per_1000kcal_max:
                 violated = f"{code}: per_1000kcal > {per_1000kcal_max:.3f}g"
                 break
@@ -187,8 +189,6 @@ def main_recommend(user: User, limit: int = 10) -> dict:
         if violated:
             avoided.append({"menu_id": m.id, "menu_name": m.name, "reason": violated})
             continue
-
-        candidates.append((m, grams, kcal))
 
         #3차: 총 열량 대비 탄단지 비율
         for code, rule in rules.items():
@@ -198,9 +198,11 @@ def main_recommend(user: User, limit: int = 10) -> dict:
             max_percent = rule.get("percent_max")
             nutrient_kcal = _kcal_of(code, grams.get(code, 0.0))
             ratio = (nutrient_kcal / kcal * 100) if kcal > 0 else 0
+            '''
             if min_percent is not None and ratio < min_percent:
                 violated = f"{code}: percent<{min_percent:.1f}%"
                 break
+            '''
             if max_percent is not None and ratio > max_percent:
                 violated = f"{code}: percent>{max_percent:.1f}%"
                 break
@@ -208,6 +210,8 @@ def main_recommend(user: User, limit: int = 10) -> dict:
         if violated:
             avoided.append({"menu_id": m.id, "menu_name": m.name, "reason": violated})
             continue
+
+        candidates.append((m, grams, kcal))
 
 
     # 부족분 점수 계산
@@ -220,7 +224,8 @@ def main_recommend(user: User, limit: int = 10) -> dict:
 
             abs_min = rule.get("abs_min_once_g")
             if abs_min is not None:
-                deficit = max(0.0, abs_min - totals_g.get(code, 0.0))
+                week_abs_min = abs_min * total_count
+                deficit = max(0.0, week_abs_min - totals_g.get(code, 0.0))
                 score += min(deficit, grams.get(code, 0.0))
         scored.append((score, m, grams, kcal))
 

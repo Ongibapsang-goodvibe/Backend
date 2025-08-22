@@ -28,9 +28,10 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'django-insecure-default-key')  #기
 #!!!!주의!!!! 배포 시 .env에서 DJANGO_SECRET_KEY를 반드시 설정해야 함
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ["127.0.0.1", "localhost", "b8643e1c459f.ngrok-free.app"]
+ALLOWED_HOSTS = ["127.0.0.1", "localhost", "b8643e1c459f.ngrok-free.app", "goodvibe.pythonanywhere.com"]
+CSRF_TRUSTED_ORIGINS = ["https://goodvibe.pythonanywhere.com"]
 
 AUTH_USER_MODEL = "accounts.User"
 
@@ -82,6 +83,7 @@ MIDDLEWARE = [
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5174",  # Vite
     "http://127.0.0.1:5174",
+    "https://abf4b77eec55.ngrok-free.app"
     "http://localhost:5173",  # Vite
     "http://127.0.0.1:5173",
     "https://b8643e1c459f.ngrok-free.app",
@@ -147,6 +149,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
@@ -160,4 +164,4 @@ AUTH_USER_MODEL = 'accounts.User'
 ASGI_APPLICATION = 'Ongibapsang.asgi.application'
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = BASE_DIR / "media"

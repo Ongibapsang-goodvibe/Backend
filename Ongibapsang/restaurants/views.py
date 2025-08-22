@@ -12,7 +12,7 @@ from .recommendation import main_recommend
 
 # 메뉴 검색 결과 뷰 
 class SearchView(APIView):
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [IsAuthenticated]
 
     def post(self, request):
         s = SearchInputSerializer(data=request.data)
@@ -26,7 +26,7 @@ class SearchView(APIView):
     
 # 메뉴 카테고리별 분류 
 class CategoryView(ListAPIView):
-        permission_classes = [permissions.AllowAny]
+        permission_classes = [IsAuthenticated]
         serializer_class = MenuCardSerializer
         
         def get_queryset(self):

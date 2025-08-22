@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from rest_framework.parsers import JSONParser, FormParser, MultiPartParser
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import IsAuthenticated
 from rest_framework import generics
 from datetime import datetime, timedelta
 from collections import defaultdict, Counter
@@ -189,7 +189,7 @@ class CurrentWeekNutritionReport(APIView):
 
 class LastWeekNutritionReport(APIView):
 
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
     def get(self, request):
         user = request.user
@@ -267,7 +267,7 @@ class LastWeekNutritionReport(APIView):
 #DB 저장용
 class HealthcareLogView(generics.CreateAPIView):
     serializer_class=HealthcareLogSerializer
-    permission_classes=[AllowAny]
+    permission_classes=[IsAuthenticated]
     parser_classes=[JSONParser, FormParser, MultiPartParser] #JSON/폼 다 받기
 
     def perform_create(self, serializer):

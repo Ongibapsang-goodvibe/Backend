@@ -12,9 +12,9 @@ class DetailOptionView(generics.ListAPIView):
     permission_classes = [AllowAny]
 
     def get_queryset(self):
-        init = self.request.query_params.get("initial_label")
-        qs = DetailOption.objects.order_by("initial_label", "sort_order", "id")
-        return qs.filter(initial_label=init) if init else qs.none()
+        init = self.request.query_params.get("kind")
+        qs = DetailOption.objects.order_by("kind", "sort_order", "id")
+        return qs.filter(kind=init) if init else qs.none()
 
 # DB 저장용 
 class MealLogView(generics.CreateAPIView):

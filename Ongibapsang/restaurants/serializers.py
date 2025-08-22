@@ -14,12 +14,12 @@ class MenuCardSerializer(serializers.ModelSerializer):
     restaurant_id = serializers.IntegerField(source="restaurant.id", read_only=True)
     restaurant_name = serializers.CharField(source="restaurant.name", read_only=True)
     delivery_fee = serializers.IntegerField(source="restaurant.delivery_fee", read_only=True)
-    delivery_time = serializers.IntegerField()
+    delivery_time = serializers.IntegerField(source="restaurant.delivery_time", read_only=True, required=False)
     image_url = serializers.SerializerMethodField()
 
     class Meta:
         model = Menu
-        fields = ["menu_id", "menu_name", "price", "restaurant_id", "restaurant_name", "delivery_fee", "image_url"]
+        fields = ["menu_id", "menu_name", "price", "restaurant_id", "restaurant_name", "delivery_fee", "delivery_time", "image_url"]
 
     def get_image_url(self, obj):
         img = getattr(obj, "image", None)

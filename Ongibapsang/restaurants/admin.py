@@ -1,4 +1,3 @@
-# restaurants/admin.py
 from django.contrib import admin
 from .models import *
 
@@ -31,10 +30,3 @@ class IngredientAdmin(admin.ModelAdmin):
 class SearchLogAdmin(admin.ModelAdmin):
     list_display = ("id", "keyword", "stage", "created_at")
 
-
-
-@admin.register(SearchLog)
-class SearchLogAdmin(admin.ModelAdmin):
-    list_display = ("id", "keyword", "stage", "created_at")
-    list_filter = ("stage",)
-    search_fields = ("keyword",)

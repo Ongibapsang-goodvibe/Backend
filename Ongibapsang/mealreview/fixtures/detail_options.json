@@ -1,17 +1,80 @@
 [
-    {"model":"mealreview.detailoption","pk":1,
-     "fields":{"label":"좋아하는 음식이에요","initial_label":"GOOD","sort_order":10}},
-    {"model":"mealreview.detailoption","pk":2,
-     "fields":{"label":"간이 딱 맞아요","initial_label":"GOOD","sort_order":20}},
-    {"model":"mealreview.detailoption","pk":3,
-     "fields":{"label":"속이 편해요","initial_label":"GOOD","sort_order":30}},
-    {"model":"mealreview.detailoption","pk":4,
-     "fields":{"label":"짜요","initial_label":"BAD","sort_order":10}},
-    {"model":"mealreview.detailoption","pk":5,
-     "fields":{"label":"싱거워요","initial_label":"BAD","sort_order":20}},
-    {"model":"mealreview.detailoption","pk":6,
-     "fields":{"label":"달아요","initial_label":"BAD","sort_order":30}},
-    {"model":"mealreview.detailoption","pk":7,
-     "fields":{"label":"느끼해요","initial_label":"BAD","sort_order":40}}
+    {
+      "model": "mealreview.ReviewOption",
+      "pk": 1,
+      "fields": {
+        "key": "liked-food",
+        "label": "좋아하는 음식이에요",
+        "kind": "GOOD",
+        "sort_order": 10,
+        "is_active": true
+      }
+    },
+    {
+      "model": "mealreview.ReviewOption",
+      "pk": 2,
+      "fields": {
+        "key": "good-salt",
+        "label": "간이 딱 맞아요",
+        "kind": "GOOD",
+        "sort_order": 20,
+        "is_active": true
+      }
+    },
+    {
+      "model": "mealreview.ReviewOption",
+      "pk": 3,
+      "fields": {
+        "key": "comfortable",
+        "label": "속이 편해요",
+        "kind": "GOOD",
+        "sort_order": 30,
+        "is_active": true
+      }
+    },
+    {
+      "model": "mealreview.ReviewOption",
+      "pk": 4,
+      "fields": {
+        "key": "too-salty",
+        "label": "짜요",
+        "kind": "BAD",
+        "sort_order": 10,
+        "is_active": true
+      }
+    },
+    {
+      "model": "mealreview.ReviewOption",
+      "pk": 5,
+      "fields": {
+        "key": "too-bland",
+        "label": "싱거워요",
+        "kind": "BAD",
+        "sort_order": 20,
+        "is_active": true
+      }
+    },
+    {
+      "model": "mealreview.ReviewOption",
+      "pk": 6,
+      "fields": {
+        "key": "too-sweet",
+        "label": "달아요",
+        "kind": "BAD",
+        "sort_order": 30,
+        "is_active": true
+      }
+    },
+    {
+      "model": "mealreview.ReviewOption",
+      "pk": 7,
+      "fields": {
+        "key": "greasy",
+        "label": "느끼해요",
+        "kind": "BAD",
+        "sort_order": 40,
+        "is_active": true
+      }
+    }
   ]
   

@@ -4,8 +4,9 @@ from .models import *
 # Register your models here.
 @admin.register(Disease)
 class DiseaseAdmin(admin.ModelAdmin):
-    list_display = ("id","name")
-    search_fields = ("name")
+    list_display  = ("id", "name")
+    search_fields = ("name",) 
+    ordering      = ("name",)
 
 @admin.register(DiseaseRules)
 class DiseaseRulesAdmin(admin.ModelAdmin):

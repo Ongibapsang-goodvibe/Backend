@@ -16,3 +16,4 @@ class DeliveryLogAdmin(admin.ModelAdmin):
     search_fields = ("option_label", "text")
     date_hierarchy = "created_at"
     ordering      = ("-id",)
+

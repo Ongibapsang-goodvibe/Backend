@@ -1,0 +1,828 @@
+[
+    {
+      "model": "restaurants.ingredient",
+      "pk": 1,
+      "fields": {
+        "name": "고추장"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 2,
+      "fields": {
+        "name": "고춧가루"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 3,
+      "fields": {
+        "name": "김치"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 4,
+      "fields": {
+        "name": "대파"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 5,
+      "fields": {
+        "name": "돼지고기"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 6,
+      "fields": {
+        "name": "두부"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 7,
+      "fields": {
+        "name": "마늘"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 8,
+      "fields": {
+        "name": "멸치다시마육수"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 9,
+      "fields": {
+        "name": "소금"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 10,
+      "fields": {
+        "name": "후추"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 11,
+      "fields": {
+        "name": "된장"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 12,
+      "fields": {
+        "name": "애호박"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 13,
+      "fields": {
+        "name": "양파"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 14,
+      "fields": {
+        "name": "청양고추"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 15,
+      "fields": {
+        "name": "고추기름"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 16,
+      "fields": {
+        "name": "순두부"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 17,
+      "fields": {
+        "name": "조개"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 18,
+      "fields": {
+        "name": "청국장"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 19,
+      "fields": {
+        "name": "호박"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 20,
+      "fields": {
+        "name": "당면"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 21,
+      "fields": {
+        "name": "무"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 22,
+      "fields": {
+        "name": "소갈비"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 23,
+      "fields": {
+        "name": "고사리"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 24,
+      "fields": {
+        "name": "다진마늘"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 25,
+      "fields": {
+        "name": "들기름"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 26,
+      "fields": {
+        "name": "양지"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 27,
+      "fields": {
+        "name": "콩나물"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 28,
+      "fields": {
+        "name": "사골뼈"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 29,
+      "fields": {
+        "name": "소면"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 30,
+      "fields": {
+        "name": "감자"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 31,
+      "fields": {
+        "name": "깻잎"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 32,
+      "fields": {
+        "name": "돼지등뼈"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 33,
+      "fields": {
+        "name": "우거지"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 34,
+      "fields": {
+        "name": "들깨가루"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 35,
+      "fields": {
+        "name": "선지"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 36,
+      "fields": {
+        "name": "동태"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 37,
+      "fields": {
+        "name": "간장"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 38,
+      "fields": {
+        "name": "갈치"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 39,
+      "fields": {
+        "name": "명태알"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 40,
+      "fields": {
+        "name": "해물육수"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 41,
+      "fields": {
+        "name": "사골육수"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 42,
+      "fields": {
+        "name": "새우젓"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 43,
+      "fields": {
+        "name": "순대"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 44,
+      "fields": {
+        "name": "김가루"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 45,
+      "fields": {
+        "name": "달걀"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 46,
+      "fields": {
+        "name": "느타리버섯"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 47,
+      "fields": {
+        "name": "양송이"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 48,
+      "fields": {
+        "name": "표고버섯"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 49,
+      "fields": {
+        "name": "차돌박이"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 50,
+      "fields": {
+        "name": "밀가루반죽"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 51,
+      "fields": {
+        "name": "해물믹스"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 52,
+      "fields": {
+        "name": "북어"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 53,
+      "fields": {
+        "name": "양배추"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 54,
+      "fields": {
+        "name": "미꾸라지"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 55,
+      "fields": {
+        "name": "시래기"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 56,
+      "fields": {
+        "name": "계란"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 57,
+      "fields": {
+        "name": "당근"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 58,
+      "fields": {
+        "name": "시금치"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 59,
+      "fields": {
+        "name": "쌀밥"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 60,
+      "fields": {
+        "name": "참기름"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 61,
+      "fields": {
+        "name": "설탕"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 62,
+      "fields": {
+        "name": "소고기"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 63,
+      "fields": {
+        "name": "새우"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 64,
+      "fields": {
+        "name": "완두콩"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 65,
+      "fields": {
+        "name": "케첩"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 66,
+      "fields": {
+        "name": "카레가루"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 67,
+      "fields": {
+        "name": "닭고기"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 68,
+      "fields": {
+        "name": "마요네즈"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 69,
+      "fields": {
+        "name": "가쓰오육수"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 70,
+      "fields": {
+        "name": "돈까스"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 71,
+      "fields": {
+        "name": "야채모둠"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 72,
+      "fields": {
+        "name": "참치캔"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 73,
+      "fields": {
+        "name": "파"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 74,
+      "fields": {
+        "name": "낙지"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 75,
+      "fields": {
+        "name": "다진돼지고기"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 76,
+      "fields": {
+        "name": "두반장"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 77,
+      "fields": {
+        "name": "마라소스"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 78,
+      "fields": {
+        "name": "스팸"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 79,
+      "fields": {
+        "name": "다진닭고기"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 80,
+      "fields": {
+        "name": "달걀지단"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 81,
+      "fields": {
+        "name": "생강"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 82,
+      "fields": {
+        "name": "물"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 83,
+      "fields": {
+        "name": "쌀"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 84,
+      "fields": {
+        "name": "전복"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 85,
+      "fields": {
+        "name": "단호박"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 86,
+      "fields": {
+        "name": "우유"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 87,
+      "fields": {
+        "name": "굴"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 88,
+      "fields": {
+        "name": "미역"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 89,
+      "fields": {
+        "name": "흑임자"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 90,
+      "fields": {
+        "name": "찹쌀가루"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 91,
+      "fields": {
+        "name": "팥"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 92,
+      "fields": {
+        "name": "홍합"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 93,
+      "fields": {
+        "name": "아몬드"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 94,
+      "fields": {
+        "name": "호두"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 95,
+      "fields": {
+        "name": "대추"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 96,
+      "fields": {
+        "name": "밤"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 97,
+      "fields": {
+        "name": "인삼"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 98,
+      "fields": {
+        "name": "치즈"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 99,
+      "fields": {
+        "name": "브로콜리"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 100,
+      "fields": {
+        "name": "식용유"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 101,
+      "fields": {
+        "name": "고추"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 102,
+      "fields": {
+        "name": "멸치"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 103,
+      "fields": {
+        "name": "물엿"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 104,
+      "fields": {
+        "name": "서리태"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 105,
+      "fields": {
+        "name": "식초"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 106,
+      "fields": {
+        "name": "오이"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 107,
+      "fields": {
+        "name": "진미채"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 108,
+      "fields": {
+        "name": "어묵"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 109,
+      "fields": {
+        "name": "부침가루"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 110,
+      "fields": {
+        "name": "고등어"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 111,
+      "fields": {
+        "name": "오징어"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 112,
+      "fields": {
+        "name": "도토리묵"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 113,
+      "fields": {
+        "name": "부추"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 114,
+      "fields": {
+        "name": "연근"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 115,
+      "fields": {
+        "name": "가지"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 116,
+      "fields": {
+        "name": "멸치액젓"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 117,
+      "fields": {
+        "name": "배추"
+      }
+    },
+    {
+      "model": "restaurants.ingredient",
+      "pk": 118,
+      "fields": {
+        "name": "명이나물"
+      }
+    }
+  ]

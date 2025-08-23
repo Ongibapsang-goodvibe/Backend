@@ -11,7 +11,6 @@ from rest_framework.authtoken.models import Token
 from rest_framework.permissions import IsAuthenticated
 from django.shortcuts import render
 from .models import User
-from .serializers import UserSerializer
 
 # Create your views here.
 # 로그인(이름+비밀번호 숫자 6자리) 
@@ -59,5 +58,4 @@ class UserView(APIView):
     permission_classes = [IsAuthenticated] 
 
     def get(self, request):
-        serializers = UserSerializer(request.user)
-        return Response(serializers.data)
+        return Response(UserSerializer(request.user).data, status=200)

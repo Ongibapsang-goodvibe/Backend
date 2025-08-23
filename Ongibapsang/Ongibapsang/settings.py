@@ -28,10 +28,10 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'django-insecure-default-key')  #기
 #!!!!주의!!!! 배포 시 .env에서 DJANGO_SECRET_KEY를 반드시 설정해야 함
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = os.getenv("DJANGO_DEBUG", "False").lower() == "true"
 
-ALLOWED_HOSTS = ["127.0.0.1", "localhost", "b8643e1c459f.ngrok-free.app", "goodvibe.pythonanywhere.com"]
-CSRF_TRUSTED_ORIGINS = ["https://goodvibe.pythonanywhere.com"]
+ALLOWED_HOSTS = ["127.0.0.1", "localhost", "ongibapsang.pythonanywhere.com",]
+CSRF_TRUSTED_ORIGINS = ["https://ongibapsang.pythonanywhere.com"]
 
 AUTH_USER_MODEL = "accounts.User"
 
@@ -77,21 +77,13 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
 ]
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5174",  # Vite
     "http://127.0.0.1:5174",
-    "https://abf4b77eec55.ngrok-free.app"
-    "http://localhost:5173",  # Vite
-    "http://127.0.0.1:5173",
-    "https://b8643e1c459f.ngrok-free.app",
-    
-    # 같은 와이파이에서 프론트가 다른 PC라면(예: 프론트 PC IP가 192.168.0.23)
-    # "http://192.168.0.23:5173",
-    # 터널/스테이징을 쓰면 여기에 추가:
-    # "https://xxxx.ngrok-free.app",
+    "http://localhost:5173",
+    "http://127.0.0.1:5173"
 ]
 
 

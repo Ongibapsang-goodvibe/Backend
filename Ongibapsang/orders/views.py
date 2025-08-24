@@ -15,7 +15,7 @@ from restaurants.models import *
 
 # Create your views here.
 class OrderListView(generics.ListCreateAPIView):
-    permission_classes = [permissions.AllowAny]  # 개발 임시
+    permission_classes = [IsAuthenticated] 
     queryset = Order.objects.all()               # get_queryset 오버라이드도 가능
 
     def get_serializer_class(self):
@@ -57,7 +57,7 @@ class RecommendAPIView(APIView):
 
 #결제 금액, 배달 시간 계산
 class OrderOutputView(APIView):
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
     def post(self, request):
         s = MenuInputSerializer(data=request.data)
@@ -70,6 +70,11 @@ class OrderOutputView(APIView):
         # 같은 식당 메뉴인지 검증
         if menu.restaurant_id != restaurant.id:
             return Response({"detail": "해당 식당의 메뉴가 아닙니다."}, status=400)
+        
+        #입력값 가져오기
+        restaurant_request = s.validated_data.get("restaurant_request", "")
+        delivery_request = s.validated_data.get("delivery_request", "")
+        payment_method = s.validated_data["payment_method"]
 
         # 금액 계산
         subtotal = menu.price * qty
@@ -92,5 +97,8 @@ class OrderOutputView(APIView):
             "eta_minutes": eta_minutes,
             "eta_at": eta_dt,
             "eta_text": eta_text,
+            "restaurant_request": restaurant_request,
+            "delivery_request": delivery_request,
+            "payment_method": payment_method,
         }).data
         return Response(out, status=status.HTTP_200_OK)

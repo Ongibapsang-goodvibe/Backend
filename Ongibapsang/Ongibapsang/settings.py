@@ -12,26 +12,27 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 import os
-from dotenv import load_dotenv
+#from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-load_dotenv(os.path.join(BASE_DIR, '.env')) # .env파일 로드
+#load_dotenv(os.path.join(BASE_DIR, '.env')) # .env파일 로드
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'django-insecure-default-key')  #기본값 제공
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')  #기본값 제공
 #!!!!주의!!!! 배포 시 .env에서 DJANGO_SECRET_KEY를 반드시 설정해야 함
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv("DJANGO_DEBUG", "False").lower() == "true"
+DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
 
-ALLOWED_HOSTS = ["127.0.0.1", "localhost", "ongibapsang.pythonanywhere.com",]
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
+
 CSRF_TRUSTED_ORIGINS = ["https://ongibapsang.pythonanywhere.com"]
 
 AUTH_USER_MODEL = "accounts.User"
@@ -88,7 +89,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:5173",
 ]
 '''
-CORS_ORIGIN_ALLOW_ALL = True 
+CORS_ORIGIN_ALLOW_ALL = True
 
 CORS_ALLOW_CREDENTIALS = True #쿠키가 cross-site HTTP 요청에 포함됨
 CORS_ALLOW_METHODS = ( #실제 요청에 허용되는 HTTP 동사 리스트
@@ -121,6 +122,7 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
+                "django.template.context_processors.debug",
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
@@ -165,8 +167,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = 'static/'
-STATIC_ROOT = BASE_DIR / "staticfiles"
+#STATIC_URL = 'static/'
+#STATIC_ROOT = BASE_DIR / "staticfiles"
 
 
 # Default primary key field type
@@ -180,5 +182,7 @@ AUTH_USER_MODEL = 'accounts.User'
 
 ASGI_APPLICATION = 'Ongibapsang.asgi.application'
 
+MEDIA_ROOT = '/home/ongibapsang/Ongibapsang/media'
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / "media"
+STATIC_ROOT = '/home/ongibapsang/Ongibapsang/static'
+STATIC_URL = '/static/'

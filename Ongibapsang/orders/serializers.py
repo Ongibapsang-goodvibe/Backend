@@ -24,6 +24,7 @@ class MakeOrderSerializer(serializers.ModelSerializer):
         user = getattr(request, "user", None)
         menu: Menu = validated_data["menu"]
         quantity = int(validated_data.get("quantity", 1) or 1)
+        price = int
 
         # ---- 단위 통일 ----
         def _to_grams(value: float | int | None, unit: str | None) -> float:
@@ -69,6 +70,10 @@ class MakeOrderSerializer(serializers.ModelSerializer):
             "menu": menu,
             "quantity": quantity,
             "record_fixed": record_fixed,
+            "restaurant_request": validated_data.get("restaurant_request", ""),
+            "delivery_request": validated_data.get("delivery_request", ""),
+            "payment_method": validated_data.get("payment_method", ""),
+
         }
 
         if _has_field(Order, "menu_price"):

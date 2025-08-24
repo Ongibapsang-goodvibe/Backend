@@ -49,7 +49,7 @@ class ProcessAudioAPIView(APIView):
         # 이전 대화 가져오기(최근 10개) -> 대화 이어서 전송
         previous_messages = ChatMessage.objects.all().order_by('-created_at')[:10]
         messages_for_gpt = [
-            {"role": "system", "content": "최대한 귀엽고 높은 톤과 함께 존댓말로 천천히 말해주세요. 답변 시간은 15초 이내로 해주세요. 대화를 계속 이어가주세요."}
+            {"role": "system", "content": "최대한 귀엽고 높은 톤과 함께 존댓말로 천천히 말해주세요. 대화 상대는 노인임을 잊지 마세요. 답변 시간은 15초 이내로 해주세요. 대화를 계속 이어가주세요."}
         ]
         for msg in reversed(previous_messages):
             messages_for_gpt.append({

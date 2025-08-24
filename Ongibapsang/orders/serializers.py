@@ -69,6 +69,10 @@ class MakeOrderSerializer(serializers.ModelSerializer):
             "menu": menu,
             "quantity": quantity,
             "record_fixed": record_fixed,
+            "restaurant_request": validated_data.get("restaurant_request", ""),
+            "delivery_request": validated_data.get("delivery_request", ""),
+            "payment_method": validated_data.get("payment_method", ""),
+
         }
 
         if _has_field(Order, "menu_price"):

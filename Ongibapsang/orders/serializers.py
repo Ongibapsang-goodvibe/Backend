@@ -24,6 +24,7 @@ class MakeOrderSerializer(serializers.ModelSerializer):
         user = getattr(request, "user", None)
         menu: Menu = validated_data["menu"]
         quantity = int(validated_data.get("quantity", 1) or 1)
+        price = int
 
         # ---- 단위 통일 ----
         def _to_grams(value: float | int | None, unit: str | None) -> float:

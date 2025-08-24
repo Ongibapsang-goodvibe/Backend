@@ -87,5 +87,20 @@
     {"model":"restaurants.menunutrition","pk":67,"fields":{"menu":5,"nutrient":11,"amount":0}},
     {"model":"restaurants.menunutrition","pk":68,"fields":{"menu":5,"nutrient":12,"amount":0}},
     {"model":"restaurants.menunutrition","pk":69,"fields":{"menu":5,"nutrient":13,"amount":386.8}},
-    {"model":"restaurants.menunutrition","pk":70,"fields":{"menu":5,"nutrient":14,"amount":473}}
+    {"model":"restaurants.menunutrition","pk":70,"fields":{"menu":5,"nutrient":14,"amount":473}},
+
+    {"model":"restaurants.menunutrition","pk":71,"fields":{"menu":6,"nutrient":1,"amount":30.42}},
+    {"model":"restaurants.menunutrition","pk":72,"fields":{"menu":6,"nutrient":2,"amount":0.0}},
+    {"model":"restaurants.menunutrition","pk":73,"fields":{"menu":6,"nutrient":3,"amount":10.81}},
+    {"model":"restaurants.menunutrition","pk":74,"fields":{"menu":6,"nutrient":4,"amount":6.97}},
+    {"model":"restaurants.menunutrition","pk":75,"fields":{"menu":6,"nutrient":5,"amount":0}},
+    {"model":"restaurants.menunutrition","pk":76,"fields":{"menu":6,"nutrient":6,"amount":7.1}},
+    {"model":"restaurants.menunutrition","pk":77,"fields":{"menu":6,"nutrient":7,"amount":726}},
+    {"model":"restaurants.menunutrition","pk":78,"fields":{"menu":6,"nutrient":8,"amount":262}},
+    {"model":"restaurants.menunutrition","pk":79,"fields":{"menu":6,"nutrient":9,"amount":266}},
+    {"model":"restaurants.menunutrition","pk":80,"fields":{"menu":6,"nutrient":10,"amount":93}},
+    {"model":"restaurants.menunutrition","pk":81,"fields":{"menu":6,"nutrient":11,"amount":0}},
+    {"model":"restaurants.menunutrition","pk":82,"fields":{"menu":6,"nutrient":12,"amount":0}},
+    {"model":"restaurants.menunutrition","pk":83,"fields":{"menu":6,"nutrient":13,"amount":386.8}},
+    {"model":"restaurants.menunutrition","pk":84,"fields":{"menu":6,"nutrient":14,"amount":473}}
 ]

@@ -27,7 +27,7 @@ class MoodOption(models.TextChoices):
 # DB 저장용 로그
 class HealthcareLog(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True,
-                             on_delete=models.SET_NULL, related_name="healthcare_logs")
+                            on_delete=models.SET_NULL, related_name="healthcare_logs")
     order = models.ForeignKey(Order, on_delete=models.CASCADE, null=True,blank=True)
     initial_label=models.CharField(max_length=20, choices=HealthcareOption.choices) #아무 문제 없어요 or 어딘가 불편해요 
     text= models.CharField(max_length=255, blank=True) # 어딘가 불편해요 선택 시 음성 텍스트 

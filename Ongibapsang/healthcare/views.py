@@ -119,17 +119,51 @@ def weekly_data(user: User, disease_id: int, start, end):
         "period_end": end,
     }
 
-def ai_api_calling(analysis: dict, disease_name: str):
+def ai_feedback_1(analysis: dict, disease_name: str):
     sys_prompt = "당신은 지금부터 영양사입니다. 간단하지만 정확한 주간 영양보고서를 작성해주세요."
     user_prompt = (
         "아래는 사용자의 최근 주간 식사 주문 기록과 질환별 권고치입니다. "
-        "데이터를 분석해, 해당 질환 관점에서 주간 섭취 평가와 구체적 행동 팁을 한국어로 각각 한 문장씩 제공하세요. \n\n"
+        "데이터를 분석해, 해당 질환 관점에서 한국어로 제공하세요. 아래 형식의 예시를 참고하여 한 문장만 제공하세요. []는 제외하세요.\n\n"
         f"- 질환: {disease_name}\n"
         f"- 분석데이터(JSON): {analysis}\n"
         "형식:\n"
-        "1) 요약(한 문장)\n"
-        "2) 비율/기준 대비 평가(불충분/과다 중심)\n"
-        "3) 다음 주 행동 팁(글머리표)\n"
+        "[질환별 권고치를 위반한 영양소들] 조절이 필요해요. (예시: 탄수화물과 지방 조절이 필요해요.)\n"
+    )
+
+    try:
+        if _OPENAI_IS_V1:
+            resp = _OPENAI_CLIENT.chat.completions.create(
+                model="gpt-4o-mini",
+                messages=[
+                    {"role": "system", "content": sys_prompt},
+                    {"role": "user", "content": user_prompt},
+                ],
+                temperature=0.7,
+            )
+            return resp.choices[0].message.content.strip()
+        else:
+            resp = _OPENAI_CLIENT.ChatCompletion.create(
+                model="gpt-4o-mini",
+                messages=[
+                    {"role": "system", "content": sys_prompt},
+                    {"role": "user", "content": user_prompt},
+                ],
+                temperature=0.7,
+            )
+            return resp.choices[0].message["content"].strip()
+    except Exception as e:
+        return f"AI 분석 실패: {e}"
+    
+def ai_feedback_2(analysis: dict, disease_name: str):
+    sys_prompt = "당신은 지금부터 영양사입니다. 간단하지만 정확한 주간 영양보고서를 작성해주세요."
+    user_prompt = (
+        "아래는 사용자의 최근 주간 식사 주문 기록과 질환별 권고치입니다. "
+        "데이터를 분석해, 해당 질환 관점에서 분석 데이터 요약, 질환 맞춤 경고, 분석 기반 메뉴 추천을 한국어로 각각 한 문장씩 제공하세요. [] 안의 내용을 바꿔서 문장을 완성한 뒤 카테고리는 숨기고 내용만 제공하세요. 총 3문장을 제공하되 중복되는 내용 없이 흐름이 어색하지 않은 문단을 완성하세요.\n\n"
+        f"- 질환: {disease_name}\n"
+        f"- 분석데이터(JSON): {analysis}\n"
+        "형식:\n"
+        "'분석 데이터 요약(한 문장).' '[특정성분] 섭취가 [많으면/적으면] [특정 성분 섭취 요건 불충족 시에 해당 질환에 영향을 주는 기능(예시: 혈당관리, 염증 조절 등, 해당 질환에 영향을 주는 기능을 깊이 고민하고 분석해야 함. 예시는 참고만 할 것.)]가 어려워요.'\n"
+        "'다음 주에는 [질환에 해로운 메뉴] 같은 음식을 줄이고 [질환별 권고치를 위반한 영양소]가 [풍부한/적은] [추천 메뉴]를 드셔보세요!'/n"
     )
 
     try:
@@ -167,7 +201,21 @@ class CurrentWeekNutritionReport(APIView):
         combined_analysis = {}
         for disease in all_diseases:
             analysis = weekly_data(request.user, disease.id, start, end)
-            ai_feedback = ai_api_calling(
+            feedback_1 = ai_feedback_1(
+                {
+                    "total_g": analysis["total_g"],
+                    "total_kcal": analysis["total_kcal"],
+                    "nutrient_percent": analysis["nutrient_percent"],
+                    "weekly_recommend": analysis["weekly_recommend"],
+                    "order_count": analysis["order_count"],
+                    "period": {
+                        "start": str(analysis["period_start"]),
+                        "end": str(analysis["period_end"]),
+                    },
+                },
+                disease_name=disease.name,
+            )
+            feedback_2 = ai_feedback_2(
                 {
                     "total_g": analysis["total_g"],
                     "total_kcal": analysis["total_kcal"],
@@ -183,7 +231,8 @@ class CurrentWeekNutritionReport(APIView):
             )
             combined_analysis[disease.name] = {
                 "analysis": analysis,
-                "ai_feedback": ai_feedback,
+                "ai_feedback_1": feedback_1,
+                "ai_feedback_2": feedback_2,
             }
         return Response(combined_analysis, status=status.HTTP_200_OK)
 
@@ -198,7 +247,21 @@ class LastWeekNutritionReport(APIView):
         combined_analysis = {}
         for disease in all_diseases:
             analysis = weekly_data(request.user, disease.id, last_monday, this_monday)
-            ai_feedback = ai_api_calling(
+            feedback_1 = ai_feedback_1(
+                {
+                    "total_g": analysis["total_g"],
+                    "total_kcal": analysis["total_kcal"],
+                    "nutrient_percent": analysis["nutrient_percent"],
+                    "weekly_recommend": analysis["weekly_recommend"],
+                    "order_count": analysis["order_count"],
+                    "period": {
+                        "start": str(analysis["period_start"]),
+                        "end": str(analysis["period_end"]),
+                    },
+                },
+                disease_name=disease.name,
+            )
+            feedback_2 = ai_feedback_2(
                 {
                     "total_g": analysis["total_g"],
                     "total_kcal": analysis["total_kcal"],
@@ -214,7 +277,8 @@ class LastWeekNutritionReport(APIView):
             )
             combined_analysis[disease.name] = {
                 "analysis": analysis,
-                "ai_feedback": ai_feedback,
+                "ai_feedback_1": feedback_1,
+                "ai_feedback_2": feedback_2,
             }
         return Response(combined_analysis, status=status.HTTP_200_OK)
 
@@ -225,7 +289,22 @@ class LastWeekNutritionReport(APIView):
         result = {}
         for disease in all_diseases:
             analysis = weekly_data(request.user, disease.id, last_monday, this_monday)
-            ai_feedback = ai_api_calling(
+            feedback_1 = ai_feedback_1(
+                {
+                    "total_g": analysis["total_g"],
+                    "total_kcal": analysis["total_kcal"],
+                    "nutrient_percent": analysis["nutrient_percent"],
+                    "weekly_recommend": analysis["weekly_recommend"],
+                    "order_count": analysis["order_count"],
+                    "period": {
+                        "start": str(analysis["period_start"]),
+                        "end": str(analysis["period_end"]),
+                    },
+                },
+                disease_name=disease.name,
+            )
+
+            feedback_2 = ai_feedback_2(
                 {
                     "total_g": analysis["total_g"],
                     "total_kcal": analysis["total_kcal"],
@@ -250,12 +329,13 @@ class LastWeekNutritionReport(APIView):
             report.total_nutrients = dict(analysis["total_g"])
             report.macro_percent = analysis["nutrient_percent"]
             report.weekly_recommend = analysis["weekly_recommend"]
-            report.note = ai_feedback
+            report.note = ai_feedback_1, ai_feedback_2
             report.save()
 
             result[disease.name] = {
                 "analysis": analysis,
-                "ai_feedback": ai_feedback,
+                "ai_feedback_1": feedback_1,
+                "ai_feedback_2": feedback_2,
                 "finalized": True,
                 "report_id": report.id,
                 "created_new_report": created,

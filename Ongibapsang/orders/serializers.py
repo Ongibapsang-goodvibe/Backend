@@ -16,7 +16,7 @@ class MakeOrderSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Order
-        fields = ("id", "menu_id", "quantity", "time")
+        fields = ("id", "menu_id", "restaurant_request", "delivery_request", "payment_method", "quantity", "time")
         read_only_fields = ("id", "time")
 
     def create(self, validated_data):
@@ -56,7 +56,7 @@ class MakeOrderSerializer(serializers.ModelSerializer):
                 grams[k] *= quantity
         record_fixed = dict(grams)
 
-        # ---- 모델에 필드가 있을 때만 세팅 ----
+        # 모델에 필드가 있을 때만 세팅
         def _has_field(model_cls: Type[Model], field_name: str) -> bool:
             try:
                 model_cls._meta.get_field(field_name)
@@ -86,21 +86,27 @@ class MakeOrderSerializer(serializers.ModelSerializer):
 class ReadOrderSerializer(serializers.ModelSerializer):
     menu_name = serializers.CharField(source="menu.name", read_only=True)
     restaurant_name = serializers.CharField(source="menu.restaurant.name", read_only=True)
-    # total_price가 모델에 없을 수도 있으니 보호용(선택)
+    price = serializers.IntegerField(source="menu.price", read_only=True)
+    delivery_fee = serializers.IntegerField(source="menu.restaurant.delivery_fee", read_only=True)
+    delivery_time = serializers.IntegerField(source="menu.restaurant.delivery_time", read_only=True)
+    small_order_fee = serializers.SerializerMethodField()
     total_price = serializers.SerializerMethodField()
 
     class Meta:
         model = Order
-        fields = ("id", "restaurant_name", "menu_name", "quantity", "total_price", "time", "record_fixed")
+        fields = ("id", "restaurant_name", "menu_name", "quantity", "price", "delivery_fee", "delivery_time", "small_order_fee", "total_price", "time", "record_fixed",)
+
+    def get_small_order_fee(self, obj):
+        menu_price = int(getattr(obj.menu, "price", 0) or 0)
+        subtotal = menu_price * (obj.quantity or 1)
+        return 500 if subtotal < 10000 else 0
 
     def get_total_price(self, obj):
-        # 모델 필드가 있으면 그대로, 없으면 계산해서 리턴
-        if hasattr(obj, "total_price") and obj.total_price is not None:
-            return obj.total_price
-        mp = int(getattr(obj.menu, "price", 0) or 0)
-        df = int(getattr(obj.menu.restaurant, "delivery_fee", 0) or 0)
+        menu_price = int(getattr(obj.menu, "price", 0) or 0)
+        delivery_fee = int(getattr(obj.menu.restaurant, "delivery_fee", 0) or 0)
         qty = int(getattr(obj, "quantity", 1) or 1)
-        return (mp + df) * qty
+        small_order_fee = self.get_small_order_fee(obj)
+        return (menu_price * qty) + delivery_fee + small_order_fee
 
 
 #결제 금액, 배달 시간 계산용 시리얼라이저 
@@ -108,6 +114,9 @@ class MenuInputSerializer(serializers.Serializer):
     restaurant_id = serializers.IntegerField()
     menu_id = serializers.IntegerField()
     qty = serializers.IntegerField(min_value=1, default=1, required=False)  # 옵션
+    restaurant_request = serializers.CharField(required=False, allow_blank=True)
+    delivery_request = serializers.ChoiceField(choices=Order.DELIVERY_REQUEST_CHOICES, required=False)
+    payment_method = serializers.ChoiceField(choices=Order.PAYMENT_CHOICES, required=True)
 
 
 class OutputSerializer(serializers.Serializer):

@@ -28,10 +28,11 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'django-insecure-default-key')  #기
 #!!!!주의!!!! 배포 시 .env에서 DJANGO_SECRET_KEY를 반드시 설정해야 함
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ["127.0.0.1", "localhost", "b8643e1c459f.ngrok-free.app", "goodvibe.pythonanywhere.com"]
-CSRF_TRUSTED_ORIGINS = ["https://goodvibe.pythonanywhere.com"]
+#ALLOWED_HOSTS = ["127.0.0.1", "localhost", "9d8a614d4f29.ngrok-free.app", "goodvibe.pythonanywhere.com"]
+ALLOWED_HOSTS = ["127.0.0.1","localhost","goodvibetest.pythonanywhere.com"]
+#CSRF_TRUSTED_ORIGINS = ["https://9d8a614d4f29.ngrok-free.app"]
 
 AUTH_USER_MODEL = "accounts.User"
 
@@ -80,18 +81,35 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
 ]
 
+'''
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5174",  # Vite
     "http://127.0.0.1:5174",
-    "https://abf4b77eec55.ngrok-free.app"
     "http://localhost:5173",  # Vite
     "http://127.0.0.1:5173",
-    "https://b8643e1c459f.ngrok-free.app",
-    
-    # 같은 와이파이에서 프론트가 다른 PC라면(예: 프론트 PC IP가 192.168.0.23)
-    # "http://192.168.0.23:5173",
-    # 터널/스테이징을 쓰면 여기에 추가:
-    # "https://xxxx.ngrok-free.app",
+]
+'''
+CORS_ORIGIN_ALLOW_ALL = True 
+
+CORS_ALLOW_CREDENTIALS = True #쿠키가 cross-site HTTP 요청에 포함됨
+CORS_ALLOW_METHODS = ( #실제 요청에 허용되는 HTTP 동사 리스트
+'DELETE',
+'GET',
+'OPTIONS',
+'PATCH',
+'POST',
+'PUT',
+)
+CORS_ALLOW_HEADERS = [
+'accept',
+'accept-encoding',
+'authorization',
+'content-type',
+'dnt',
+'origin',
+'user-agent',
+'x-csrftoken',
+'x-requested-with',
 ]
 
 

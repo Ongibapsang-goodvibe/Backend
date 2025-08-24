@@ -25,6 +25,7 @@ class LoginView(APIView):
         user = s.validated_data["user"]
 
         token, _ = Token.objects.get_or_create(user=user)
+        #token, created = Token.objects.get_or_create(user=user)
 
         return Response({
             "token": token.key,

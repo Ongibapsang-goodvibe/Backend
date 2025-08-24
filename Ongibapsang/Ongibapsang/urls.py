@@ -18,9 +18,13 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.http import HttpResponse
 
+def home(request):
+    return HttpResponse("서버 정상 동작 중")
 
 urlpatterns = [
+    path('', home),
     path('admin/', admin.site.urls),
     path('api/accounts/', include("accounts.urls")),
     path("api/restaurants/", include("restaurants.urls")),  

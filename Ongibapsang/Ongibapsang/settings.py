@@ -30,6 +30,7 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'django-insecure-default-key')  #기
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DJANGO_DEBUG", "False").lower() == "true"
 
+
 ALLOWED_HOSTS = ["127.0.0.1", "localhost", "ongibapsang.pythonanywhere.com",]
 CSRF_TRUSTED_ORIGINS = ["https://ongibapsang.pythonanywhere.com"]
 

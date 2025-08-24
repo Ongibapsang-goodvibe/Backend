@@ -16,3 +16,9 @@ class DiseaseRulesAdmin(admin.ModelAdmin):
 @admin.register(NutritionReport)
 class NutritionReportAdmin(admin.ModelAdmin):
     list_display  = ("id", "user", "disease", "date")
+
+
+@admin.register(HealthcareLog)
+class HealthcareLogAdmin(admin.ModelAdmin):
+    list_display = ("id", "user", "order", "initial_label", "text", "mood_label", "created_at")
+    

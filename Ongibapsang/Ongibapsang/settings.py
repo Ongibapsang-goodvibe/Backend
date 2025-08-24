@@ -28,11 +28,10 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'django-insecure-default-key')  #기
 #!!!!주의!!!! 배포 시 .env에서 DJANGO_SECRET_KEY를 반드시 설정해야 함
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv("DJANGO_DEBUG", "False").lower() == "true"
 
-#ALLOWED_HOSTS = ["127.0.0.1", "localhost", "9d8a614d4f29.ngrok-free.app", "goodvibe.pythonanywhere.com"]
-ALLOWED_HOSTS = ["127.0.0.1","localhost","goodvibetest.pythonanywhere.com"]
-#CSRF_TRUSTED_ORIGINS = ["https://9d8a614d4f29.ngrok-free.app"]
+ALLOWED_HOSTS = ["127.0.0.1", "localhost", "ongibapsang.pythonanywhere.com",]
+CSRF_TRUSTED_ORIGINS = ["https://ongibapsang.pythonanywhere.com"]
 
 AUTH_USER_MODEL = "accounts.User"
 
@@ -78,7 +77,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
 ]
 
 '''

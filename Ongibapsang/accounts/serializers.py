@@ -47,10 +47,8 @@ class UserDiseaseSerializer(serializers.ModelSerializer):
 
 # 유저 정보 시리얼라이저 
 class UserSerializer(serializers.ModelSerializer):
-    diseases = UserDiseaseSerializer(many=True, read_only=True)
-    disease_ids = serializers.PrimaryKeyRelatedField(many=True, write_only=True, queryset=Disease.objects.all(), source="disease")
 
     class Meta:
         model = User
-        fields = ("id", "username", "diseases", "disease_ids")
+        fields = ("id", "username", "district_name")
 

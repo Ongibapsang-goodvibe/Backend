@@ -1050,5 +1050,30 @@
           89
         ]
       }
-    }
+    },
+    {"model":"restaurants.menu","fields":{"name":"계란말이","restaurant":6,"category":3,"image":"","price":3000,"ingredients":[45,57,73,9,100]}},
+    {"model":"restaurants.menu","fields":{"name":"멸치볶음","restaurant":7,"category":3,"image":"","price":3500,"ingredients":[102,37,61,103,7,100]}},
+    {"model":"restaurants.menu","fields":{"name":"시금치나물","restaurant":8,"category":3,"image":"","price":4000,"ingredients":[58,7,60,9,37]}},
+    {"model":"restaurants.menu","fields":{"name":"콩자반","restaurant":9,"category":3,"image":"","price":4500,"ingredients":[104,37,61,103,60]}},
+    {"model":"restaurants.menu","fields":{"name":"오이무침","restaurant":10,"category":3,"image":"","price":5000,"ingredients":[106,2,105,61,9,7]}},
+    {"model":"restaurants.menu","fields":{"name":"감자조림","restaurant":1,"category":3,"image":"","price":3800,"ingredients":[30,37,61,103,7,100]}},
+    {"model":"restaurants.menu","fields":{"name":"진미채볶음","restaurant":2,"category":3,"image":"","price":4200,"ingredients":[107,1,37,61,103,7,100]}},
+    {"model":"restaurants.menu","fields":{"name":"어묵볶음","restaurant":3,"category":3,"image":"","price":4800,"ingredients":[108,13,57,37,61,103,7,100]}},
+    {"model":"restaurants.menu","fields":{"name":"김치전","restaurant":4,"category":3,"image":"","price":3600,"ingredients":[3,50,45,73,100]}},
+    {"model":"restaurants.menu","fields":{"name":"감자전","restaurant":5,"category":3,"image":"","price":4400,"ingredients":[30,50,9,100]}},
+    {"model":"restaurants.menu","fields":{"name":"잡채","restaurant":6,"category":3,"image":"","price":3900,"ingredients":[20,62,13,57,48,37,61,60]}},
+    {"model":"restaurants.menu","fields":{"name":"두부조림","restaurant":7,"category":3,"image":"","price":4300,"ingredients":[6,37,7,4,2,61]}},
+    {"model":"restaurants.menu","fields":{"name":"동그랑땡","restaurant":8,"category":3,"image":"","price":4700,"ingredients":[75,45,13,57,50,9,100]}},
+    {"model":"restaurants.menu","fields":{"name":"고등어조림","restaurant":9,"category":3,"image":"","price":5100,"ingredients":[37,101,21,4,7,40]}},
+    {"model":"restaurants.menu","fields":{"name":"파전","restaurant":10,"category":3,"image":"","price":5200,"ingredients":[73,50,45,51,100]}},
+    {"model":"restaurants.menu","fields":{"name":"도토리묵무침","restaurant":1,"category":3,"image":"","price":3400,"ingredients":[106,2,73,7,37,60]}},
+    {"model":"restaurants.menu","fields":{"name":"부추겉절이","restaurant":2,"category":3,"image":"","price":3700,"ingredients":[2,105,61,9,7,73]}},
+    {"model":"restaurants.menu","fields":{"name":"무생채","restaurant":3,"category":3,"image":"","price":4050,"ingredients":[21,2,105,61,9,7]}},
+    {"model":"restaurants.menu","fields":{"name":"연근조림","restaurant":4,"category":3,"image":"","price":4350,"ingredients":[37,61,103,60]}},
+    {"model":"restaurants.menu","fields":{"name":"버섯볶음","restaurant":5,"category":3,"image":"","price":4650,"ingredients":[46,47,48,7,9,100]}},
+    {"model":"restaurants.menu","fields":{"name":"가지볶음","restaurant":6,"category":3,"image":"","price":4950,"ingredients":[37,7,100,60]}},
+    {"model":"restaurants.menu","fields":{"name":"오징어무침","restaurant":7,"category":3,"image":"","price":5150,"ingredients":[51,2,1,105,61,7]}},
+    {"model":"restaurants.menu","fields":{"name":"미역무침","restaurant":8,"category":3,"image":"","price":3550,"ingredients":[88,105,61,9,7]}},
+    {"model":"restaurants.menu","fields":{"name":"배추겉절이","restaurant":9,"category":3,"image":"","price":3850,"ingredients":[2,7,73,61,9,105,42]}},
+    {"model":"restaurants.menu","fields":{"name":"명이나물무침","restaurant":10,"category":3,"image":"","price":4450,"ingredients":[37,61,105,7]}}
   ]

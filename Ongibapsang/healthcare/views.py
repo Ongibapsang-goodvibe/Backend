@@ -16,6 +16,13 @@ from restaurants.recommendation import _kcal_of, _to_grams
 from .models import *
 from .serializers import *
 
+import logging, uuid
+from django.conf import settings
+from django.contrib.auth import get_user_model
+from rest_framework import status, throttling, permissions, serializers
+from .emails import send_report_email
+from rest_framework.authentication import TokenAuthentication
+
 # OpenAI: v1(new) 우선, 실패시 v0(old) fallback
 try:
     from openai import OpenAI
@@ -356,6 +363,7 @@ class HealthcareLogView(generics.CreateAPIView):
         else:
             serializer.save()
 
+
 class HealthReportView(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
@@ -472,3 +480,68 @@ class HealthReportView(APIView):
         }
 
         return Response(payload)
+
+
+    
+
+#이메일 발송 함수 
+logger = logging.getLogger("notify")
+User = get_user_model()
+
+class SendWeeklyReportView(APIView):
+    """
+    주간 보고서 링크 메일 발송 엔드포인트
+    POST /api/healthcare/reports/send/
+
+    권한: 로그인 사용자(토큰 인증)
+    - 기본 수신자: 현재 로그인 사용자의 guardian_email
+    - 오버라이드: payload.to_override 가 있으면 그 주소(들)로 발송
+    - 데모 전체 고정: settings.EMAIL_DEMO_OVERRIDE 값이 있으면 그 주소로 발송
+    """
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+    throttle_classes = [throttling.ScopedRateThrottle]
+    throttle_scope = "emails"
+
+    def post(self, request, *args, **kwargs):
+        logger.info(
+            "POST /api/healthcare/reports/send auth_user=%s is_auth=%s data=%s",
+            getattr(request.user, "username", None),
+            getattr(request.user, "is_authenticated", False),
+            request.data,
+        )
+
+        s = SendWeeklyReportSerializer(data=request.data)
+        if not s.is_valid():
+            logger.warning("Invalid payload: %s", s.errors)
+            return Response(
+                {"detail": "유효하지 않은 요청", "errors": s.errors},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        link = s.validated_data["link"]
+        subject = s.validated_data.get("subject") or "온기밥상 주간 보고서"
+        to_override = s.validated_data.get("to_override", [])
+
+        # 수신자 결정 우선순위:
+        # 1) 요청 오버라이드 → 2) EMAIL_DEMO_OVERRIDE → 3) 로그인 유저의 guardian_email
+        if to_override:
+            recipients = to_override
+        elif getattr(settings, "EMAIL_DEMO_OVERRIDE", ""):
+            recipients = [settings.EMAIL_DEMO_OVERRIDE]
+        else:
+            user = request.user if getattr(request.user, "is_authenticated", False) else None
+            guardian_email = getattr(user, "guardian_email", None)  # ★ 커스텀 User 필드 사용!
+            if not guardian_email:
+                return Response({"detail": "보호자 이메일을 찾을 수 없습니다."}, status=400)
+            recipients = [guardian_email]
+
+        try:
+            sent = send_report_email(link, recipients, subject, ctx=None)
+            return Response(
+                {"ok": True, "sent": sent, "to": recipients, "link": link},
+                status=status.HTTP_200_OK,
+            )
+        except Exception as e:
+            logger.exception("SendWeeklyReport failed: %s", e)
+            return Response({"ok": False, "detail": str(e)}, status=status.HTTP_502_BAD_GATEWAY)

@@ -17,7 +17,7 @@ class User(AbstractUser):
         blank=True,
         help_text="사용자가 보유한 질환"
     )
-
+    guardian_email = models.EmailField("보호자 이메일", null=True, blank=True)
 
     def __str__(self):
         return self.username 

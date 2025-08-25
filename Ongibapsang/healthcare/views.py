@@ -370,26 +370,52 @@ class HealthReportView(APIView):
             created_at__lt=this_monday
         )
         '''
-        start, now = monday_to_now()
+        start, end = monday_to_now()
 
         logs = HealthcareLog.objects.filter(
             user=user,
             created_at__gte=start, #last_monday,
-            created_at__lt=now #this_monday
+            created_at__lt=end #this_monday
         )
-        # BAD 개수 & BAD 로그
+        # BAD 개수, 로그
         bad_logs = logs.filter(initial_label="BAD")
         bad_count = bad_logs.count()
         bad_logs_serializer = HealthcareLogSerializer(bad_logs, many=True).data
 
-        # mood 집계
+        # mood 계산, 리스트
+        date_moods = defaultdict(list)
+        label_score = {"GREAT":4,"FINE":3,"SOSO":2,"BAD":1,"TERRIBLE":0}
+
+        for log in logs:
+            if log.mood_label:
+                key = log.created_at.date()
+                score = label_score.get(log.mood_label, None)
+                if score is not None:
+                    date_moods[key].append(score)
+
+        # 날짜별 평균 점수 -> 다시 mood_label
+        date_avg_mood = {}
+        for date, scores in date_moods.items():
+            avg = sum(scores) / len(scores)
+            if avg < 1:
+                mood_label = "TERRIBLE"
+            elif avg < 2:
+                mood_label = "BAD"
+            elif avg < 3:
+                mood_label = "SOSO"
+            elif avg < 4:
+                mood_label = "FINE"
+            else:
+                mood_label = "GREAT"
+            date_avg_mood[str(date)] = mood_label
+        
         mood_list = [log.mood_label for log in logs if log.mood_label]
         mood_counts = dict(Counter(mood_list))
         dominant_mood = max(mood_counts.items(), key=lambda x: x[1])[0] if mood_counts else None
 
         # 요일별 BAD 텍스트 + 요일별 mood count
         weekday_bad_texts = defaultdict(list)
-        weekday_moods = defaultdict(list)
+        weekday_moods_score = defaultdict(list)
 
         for log in logs:
             KOREAN_WEEKDAYS = ["월요일", "화요일", "수요일", "목요일", "금요일", "토요일", "일요일"]
@@ -397,25 +423,38 @@ class HealthReportView(APIView):
             if log.initial_label == HealthcareOption.BAD:
                 weekday_bad_texts[weekday].append(log.text)
             if log.mood_label:
-                weekday_moods[weekday].append(log.mood_label)
+                weekday_moods_score[weekday].append(label_score[log.mood_label])
+
+        weekday_moods = {}
+        for day, scores in weekday_moods_score.items():
+            avg = sum(scores) / len(scores)
+            if avg < 1:
+                mood_label = "TERRIBLE"
+            elif avg < 2:
+                mood_label = "BAD"
+            elif avg < 3:
+                mood_label = "SOSO"
+            elif avg < 4:
+                mood_label = "FINE"
+            else:
+                mood_label = "GREAT"
+            weekday_moods[day] = mood_label
+
+        mood_list = [log.mood_label for log in logs if log.mood_label]
+        mood_counts = dict(Counter(mood_list))
+        dominant_mood = max(mood_counts.items(), key=lambda x: x[1])[0] if mood_counts else None
         
-        #요일별 mood 카운트로 변환
-        weekday_mood_counts = {
-            day: dict(Counter(moods)) for day, moods in weekday_moods.items()
-        }
-        
+
         payload = {
             "period_start": start, #last_monday,
-            "period_end": now - timezone.timedelta(days=1), #this_monday
+            "period_end": end, #- timezone.timedelta(days=1), #this_monday
             "bad_count": bad_count,
-            "bad_logs": bad_logs,
+            "bad_logs": bad_logs_serializer,
             "dominant_mood": dominant_mood,
-            "mood_counts": mood_counts,
             "weekday_bad_texts": dict(weekday_bad_texts),
-            "weekday_mood_counts": weekday_mood_counts,
+            "weekday_moods": weekday_moods,
         }
 
-        serializer = H_AnalysisSerializer(payload)
-        return Response(serializer.data)
+        return Response(payload)
     
         

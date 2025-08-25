@@ -4,14 +4,19 @@ from orders.models import Order
 
 # healthcare 저장 로그 시리얼라이저 
 class HealthcareLogSerializer(serializers.ModelSerializer):
-    order = serializers.PrimaryKeyRelatedField(
+    '''order = serializers.PrimaryKeyRelatedField(
         queryset = Order.objects.all(), required=True
-    )
+    )'''
+    order = serializers.IntegerField(write_only=True)  # int ID로 받기
+    order_id = serializers.SerializerMethodField(read_only=True)  # 응답 시 ID 그대로 보여주기
 
     class Meta:
         model = HealthcareLog
-        fields = ["id", "initial_label", "order", "text", "mood_label", "created_at"]
+        fields = ["id", "initial_label", "order", "order_id", "text", "mood_label", "created_at"]
         read_only_fields = ["id", "created_at"]
+
+    def get_order_id(self, obj):
+        return obj.order.id if obj.order else None
 
     
     def validate(self, attrs):
@@ -28,6 +33,16 @@ class HealthcareLogSerializer(serializers.ModelSerializer):
         if init == HealthcareOption.BAD:
             attrs["text"] = text
             return attrs
+        return attrs
+    
+    def create(self, validated_data):
+        order_id = validated_data.pop("order", None)
+        if order_id:
+            try:
+                validated_data["order"] = Order.objects.get(id=order_id)
+            except Order.DoesNotExist:
+                raise serializers.ValidationError({"order": f"Invalid order ID: {order_id}"})
+        return super().create(validated_data)
 
 class NutritionReportSerializer(serializers.ModelSerializer):
     class Meta:
@@ -49,8 +64,7 @@ class H_AnalysisSerializer(serializers.Serializer):
     period_start = serializers.DateTimeField()
     period_end = serializers.DateTimeField()
     weekday_bad_texts = serializers.DictField()
-    weekday_mood_counts = serializers.DictField()
     bad_count = serializers.IntegerField()
     bad_logs = HealthcareLogSerializer(many=True)
     dominant_mood = serializers.CharField()
-    mood_counts = serializers.DictField(child=serializers.IntegerField())
+    weekday_moods = serializers.DictField(child=serializers.IntegerField())

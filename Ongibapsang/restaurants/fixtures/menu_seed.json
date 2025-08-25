@@ -981,76 +981,11 @@
         ]
       }
     },
-    {
-      "model": "restaurants.menu",
-      "fields": {
-        "name": "굴죽",
-        "restaurant": 7,
-        "category": 2,
-        "image": "",
-        "price": 7200,
-        "ingredients": [
-          87,
-          7,
-          82,
-          9,
-          83,
-          60
-        ]
-      }
-    },
-    {
-      "model": "restaurants.menu",
-      "fields": {
-        "name": "새우죽",
-        "restaurant": 8,
-        "category": 2,
-        "image": "",
-        "price": 7800,
-        "ingredients": [
-          7,
-          82,
-          63,
-          9,
-          83,
-          60
-        ]
-      }
-    },
-    {
-      "model": "restaurants.menu",
-      "fields": {
-        "name": "미역죽",
-        "restaurant": 9,
-        "category": 2,
-        "image": "",
-        "price": 6600,
-        "ingredients": [
-          82,
-          88,
-          9,
-          83,
-          60
-        ]
-      }
-    },
-    {
-      "model": "restaurants.menu",
-      "fields": {
-        "name": "흑임자죽",
-        "restaurant": 10,
-        "category": 2,
-        "image": "",
-        "price": 7400,
-        "ingredients": [
-          82,
-          9,
-          83,
-          86,
-          89
-        ]
-      }
-    },
+    {"model": "restaurants.menu","fields": {"name": "굴죽","restaurant": 7,"category": 2, "image": "","price": 7200,"ingredients": [87,7,82,9,83, 60]}},
+    {"model": "restaurants.menu","fields": {"name": "새우죽","restaurant": 8,"category": 2,"image": "","price": 7800,"ingredients": [7,82,63,9,83,60 ]}},
+    {"model": "restaurants.menu","fields": {"name": "미역죽","restaurant": 9,"category": 2,"image": "","price": 6600,"ingredients": [ 82,88,9,83,60]}},
+    {"model": "restaurants.menu","fields": {"name": "흑임자죽","restaurant": 10,"category": 2,"image": "","price": 7400,"ingredients": [82,9,83,6,89]}},
+    
     {"model":"restaurants.menu","fields":{"name":"계란말이","restaurant":6,"category":3,"image":"","price":3000,"ingredients":[45,57,73,9,100]}},
     {"model":"restaurants.menu","fields":{"name":"멸치볶음","restaurant":7,"category":3,"image":"","price":3500,"ingredients":[102,37,61,103,7,100]}},
     {"model":"restaurants.menu","fields":{"name":"시금치나물","restaurant":8,"category":3,"image":"","price":4000,"ingredients":[58,7,60,9,37]}},

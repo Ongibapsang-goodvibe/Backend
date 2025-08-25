@@ -2,10 +2,13 @@ import os
 import uuid
 from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
+from django.http import FileResponse, Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.decorators import api_view
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.parsers import MultiPartParser, FormParser
+from pathlib import Path
 import openai
 from .models import ChatMessage
 
@@ -16,7 +19,7 @@ ALLOWED_AUDIO_EXTENSIONS = ['mp3', 'wav', 'm4a', 'ogg', 'webm']
 class ProcessAudioAPIView(APIView):
     parser_classes = [MultiPartParser, FormParser]
     permission_classes = [IsAuthenticated]
-    
+
     def post(self, request):
         # 1. 음성 파일 저장
         audio_file = request.FILES.get('audio')
@@ -88,6 +91,38 @@ class ProcessAudioAPIView(APIView):
             "answer": answer_text,
             "audio_url": f"/media/{tts_file_name}"
         })
+
+# /media/ 파일 직접 서빙
+from django.views.decorators.http import require_GET
+from django.http import Http404, FileResponse
+from pathlib import Path
+from django.conf import settings
+import logging
+
+logger = logging.getLogger(__name__)
+
+@require_GET
+def serve_audio(request, filename):
+    file_path = Path(settings.MEDIA_ROOT) / filename
+    if not file_path.exists():
+        logger.error(f"파일이 존재하지 않음: {file_path}")
+        raise Http404(f"{filename} not found")
+
+    logger.info(f"Serving audio file: {file_path}")
+
+    # 안전하게 파일 객체를 with 블록 안에서 열기
+    try:
+        f = open(file_path, "rb")
+    except Exception as e:
+        logger.exception(f"파일 열기 실패: {e}")
+        raise Http404(f"{filename} cannot be opened")
+
+    resp = FileResponse(f, content_type="audio/mpeg")
+    # CORS 헤더
+    resp["Access-Control-Allow-Origin"] = "https://ongibapsang.vercel.app"
+    resp["Access-Control-Expose-Headers"] = "Content-Range, Accept-Ranges"
+    resp["Accept-Ranges"] = "bytes"
+    return resp
 
 #대화 강제 종료
 class EndChatAPIView(APIView):

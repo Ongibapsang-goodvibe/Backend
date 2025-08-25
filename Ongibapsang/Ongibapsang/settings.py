@@ -33,9 +33,14 @@ DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
 
 
-# ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
-ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
+
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
+#ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
+CORS_ALLOWED_ORIGINS = [
+    "https://ongibapsang.vercel.app",
+]
 CSRF_TRUSTED_ORIGINS = ["https://ongibapsang.pythonanywhere.com"]
+
 
 AUTH_USER_MODEL = "accounts.User"
 
@@ -66,7 +71,12 @@ INSTALLED_APPS = [
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework.authentication.TokenAuthentication",
-          "rest_framework.authentication.SessionAuthentication",
+        "rest_framework.authentication.SessionAuthentication",
+    ],
+    # 비로그인 사용자에겐 읽기(안전메서드) 허용, 쓰기에는 권한 필요
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.IsAuthenticatedOrReadOnly",
+        #"rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly",
     ],
     "DEFAULT_FILTER_BACKENDS": [
         "django_filters.rest_framework.DjangoFilterBackend",
@@ -97,7 +107,7 @@ CORS_ALLOWED_ORIGINS = [
 ]
 '''
 
-#이메일 전송용 
+
 env = environ.Env(DEBUG=(bool, False))
 if (BASE_DIR / ".env").exists():
     environ.Env.read_env(str(BASE_DIR / ".env"))

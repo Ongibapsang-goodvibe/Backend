@@ -11,11 +11,11 @@ from django.utils import timezone
 from datetime import timedelta
 from django.utils.formats import date_format
 from django.shortcuts import get_object_or_404
-from restaurants.models import * 
+from restaurants.models import *
 
 # Create your views here.
 class OrderListView(generics.ListCreateAPIView):
-    permission_classes = [IsAuthenticated] 
+    permission_classes = [IsAuthenticated]
     queryset = Order.objects.all()               # get_queryset 오버라이드도 가능
 
     def get_serializer_class(self):
@@ -31,14 +31,14 @@ class MakeOrderView(generics.ListCreateAPIView):
 
     def get_queryset(self):
         return Order.objects.filter(user=self.request.user).select_related("menu")
-    
+
 class DeleteOrderView(generics.DestroyAPIView):
     serializer_class = ReadOrderSerializer
     permission_classes = [IsAuthenticated]
     queryset = Order.objects.all()
     lookup_field = "id"
 
-    
+
 class OrderDetailView(generics.RetrieveAPIView):
     serializer_class = ReadOrderSerializer
     permission_classes = [IsAuthenticated]
@@ -59,18 +59,30 @@ class RecommendAPIView(APIView):
 class OrderOutputView(APIView):
     permission_classes = [IsAuthenticated]
 
-    def post(self, request):
-        s = MenuInputSerializer(data=request.data)
+    def get(self, request):
+        # 쿼리 파라미터를 dict로 변환
+        data = {
+            "restaurant_id": request.query_params.get("restaurant_id"),
+            "menu_id": request.query_params.get("menu_id"),
+            "qty": request.query_params.get("qty", 1),
+            "restaurant_request": request.query_params.get("restaurant_request", ""),
+            "delivery_request": request.query_params.get("delivery_request", ""),
+            "payment_method": request.query_params.get("payment_method"),
+        }
+
+        # MenuInputSerializer로 검증
+        s = MenuInputSerializer(data=data)
         s.is_valid(raise_exception=True)
 
+        # 검증된 데이터 사용
         restaurant = get_object_or_404(Restaurant, pk=s.validated_data["restaurant_id"])
         menu = get_object_or_404(Menu, pk=s.validated_data["menu_id"])
-        qty = int(s.validated_data.get("qty", 1))
+        qty = s.validated_data.get("qty", 1)
 
         # 같은 식당 메뉴인지 검증
         if menu.restaurant_id != restaurant.id:
             return Response({"detail": "해당 식당의 메뉴가 아닙니다."}, status=400)
-        
+
         #입력값 가져오기
         restaurant_request = s.validated_data.get("restaurant_request", "")
         delivery_request = s.validated_data.get("delivery_request", "")

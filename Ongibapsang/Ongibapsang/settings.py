@@ -32,7 +32,6 @@ DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
 
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
-
 CSRF_TRUSTED_ORIGINS = ["https://ongibapsang.pythonanywhere.com"]
 
 AUTH_USER_MODEL = "accounts.User"

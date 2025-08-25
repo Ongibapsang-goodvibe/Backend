@@ -370,12 +370,12 @@ class HealthReportView(APIView):
             created_at__lt=this_monday
         )
         '''
-        start, now = monday_to_now()
+        start, end = monday_to_now()
 
         logs = HealthcareLog.objects.filter(
             user=user,
             created_at__gte=start, #last_monday,
-            created_at__lt=now #this_monday
+            created_at__lt=end #this_monday
         )
         # BAD 개수, 로그
         bad_logs = logs.filter(initial_label="BAD")
@@ -447,7 +447,7 @@ class HealthReportView(APIView):
 
         payload = {
             "period_start": start, #last_monday,
-            "period_end": now - timezone.timedelta(days=1), #this_monday
+            "period_end": end, #- timezone.timedelta(days=1), #this_monday
             "bad_count": bad_count,
             "bad_logs": bad_logs_serializer,
             "dominant_mood": dominant_mood,

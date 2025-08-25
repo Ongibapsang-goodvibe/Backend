@@ -11,7 +11,7 @@ User = get_user_model()
 class UserAdmin(BaseUserAdmin):
     model = User
 
-    list_display = ("id", "username", "district_name", "display_diseases", "is_active", "is_staff")
+    list_display = ("id", "username", "district_name", "display_diseases", "guardian_email", "is_active", "is_staff")
     search_fields = ("username", "phone", "district_name")
     ordering = ("id",)
 

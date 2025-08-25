@@ -68,3 +68,16 @@ class H_AnalysisSerializer(serializers.Serializer):
     bad_logs = HealthcareLogSerializer(many=True)
     dominant_mood = serializers.CharField()
     weekday_moods = serializers.DictField(child=serializers.IntegerField())
+
+
+class SendWeeklyReportSerializer(serializers.Serializer):
+    # 프런트는 보고서 링크만 넘겨도 됨
+    link = serializers.URLField()
+    subject = serializers.CharField(max_length=200, required=False)
+
+    # 시연 편의를 위해 수신자 오버라이드 허용(선택)
+    to_override = serializers.ListField(
+        child=serializers.EmailField(),
+        required=False,
+        allow_empty=False,
+    )

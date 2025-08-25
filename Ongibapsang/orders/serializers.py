@@ -90,6 +90,7 @@ class MakeOrderSerializer(serializers.ModelSerializer):
 
 class ReadOrderSerializer(serializers.ModelSerializer):
     menu_name = serializers.CharField(source="menu.name", read_only=True)
+    restaurant_id = serializers.IntegerField(source="menu.restaurant.id", read_only=True)
     restaurant_name = serializers.CharField(source="menu.restaurant.name", read_only=True)
     price = serializers.IntegerField(source="menu.price", read_only=True)
     delivery_fee = serializers.IntegerField(source="menu.restaurant.delivery_fee", read_only=True)
@@ -99,7 +100,7 @@ class ReadOrderSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Order
-        fields = ("id", "restaurant_name", "menu_name", "quantity", "price", "delivery_fee", "delivery_time", "small_order_fee", "total_price", "time", "record_fixed",)
+        fields = ("id", "restaurant_name", "restaurant_id", "menu_name", "quantity", "price", "delivery_fee", "delivery_time", "small_order_fee", "total_price", "time", "record_fixed",)
 
     def get_small_order_fee(self, obj):
         menu_price = int(getattr(obj.menu, "price", 0) or 0)

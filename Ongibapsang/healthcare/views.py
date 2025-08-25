@@ -72,7 +72,7 @@ def weekly_data(user: User, disease_id: int, start, end):
                 total_g[code] += float(g) * qty
             except (ValueError, TypeError):
                 continue
-    
+
     carb_percent = _kcal_of("CARB",total_g.get("CARB", 0.0))
     prot_percent = _kcal_of("PROTEIN",total_g.get("PROTEIN", 0.0))
     fat_percent = _kcal_of("FAT",total_g.get("FAT", 0.0))
@@ -153,7 +153,7 @@ def ai_feedback_1(analysis: dict, disease_name: str):
             return resp.choices[0].message["content"].strip()
     except Exception as e:
         return f"AI 분석 실패: {e}"
-    
+
 def ai_feedback_2(analysis: dict, disease_name: str):
     sys_prompt = "당신은 지금부터 영양사입니다. 간단하지만 정확한 주간 영양보고서를 작성해주세요."
     user_prompt = (
@@ -342,7 +342,7 @@ class LastWeekNutritionReport(APIView):
             }
 
         return Response(result, status=status.HTTP_200_OK)
-    
+
 #---------------------------------------------------------------------------------------------------
 #DB 저장용
 class HealthcareLogView(generics.CreateAPIView):
@@ -362,14 +362,14 @@ class HealthReportView(APIView):
     def get(self, request):
         user = request.user
         '''
-        last_monday, this_monday = lastweek()
+            last_monday, this_monday = lastweek()
 
-        logs = HealthcareLog.objects.filter(
-            user=user,
-            created_at__gte=last_monday,
-            created_at__lt=this_monday
-        )
-        '''
+            logs = HealthcareLog.objects.filter(
+                user=user,
+                created_at__gte=last_monday,
+                created_at__lt=this_monday
+            )
+            '''
         start, end = monday_to_now()
 
         logs = HealthcareLog.objects.filter(
@@ -408,7 +408,7 @@ class HealthReportView(APIView):
             else:
                 mood_label = "GREAT"
             date_avg_mood[str(date)] = mood_label
-        
+
         mood_list = [log.mood_label for log in logs if log.mood_label]
         mood_counts = dict(Counter(mood_list))
         dominant_mood = max(mood_counts.items(), key=lambda x: x[1])[0] if mood_counts else None
@@ -443,18 +443,32 @@ class HealthReportView(APIView):
         mood_list = [log.mood_label for log in logs if log.mood_label]
         mood_counts = dict(Counter(mood_list))
         dominant_mood = max(mood_counts.items(), key=lambda x: x[1])[0] if mood_counts else None
-        
+
+        all_scores = [label_score[log.mood_label] for log in logs if log.mood_label]
+        if all_scores:
+            avg_week_score = sum(all_scores) / len(all_scores)
+            if avg_week_score < 1:
+                weekly_mood = "TERRIBLE"
+            elif avg_week_score < 2:
+                weekly_mood = "BAD"
+            elif avg_week_score < 3:
+                weekly_mood = "SOSO"
+            elif avg_week_score < 4:
+                weekly_mood = "FINE"
+            else:
+                weekly_mood = "GREAT"
+        else:
+            weekly_mood = None
+
+
 
         payload = {
             "period_start": start, #last_monday,
             "period_end": end, #- timezone.timedelta(days=1), #this_monday
             "bad_count": bad_count,
-            "bad_logs": bad_logs_serializer,
-            "dominant_mood": dominant_mood,
             "weekday_bad_texts": dict(weekday_bad_texts),
             "weekday_moods": weekday_moods,
+            "dominant_mood": weekly_mood,
         }
 
         return Response(payload)
-    
-        

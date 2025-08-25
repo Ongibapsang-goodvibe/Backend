@@ -117,12 +117,12 @@ class ReadOrderSerializer(serializers.ModelSerializer):
 
 #결제 금액, 배달 시간 계산용 시리얼라이저 
 class MenuInputSerializer(serializers.Serializer):
-    restaurant_id = serializers.IntegerField()
-    menu_id = serializers.IntegerField()
+    restaurant_id = serializers.IntegerField(required=True)
+    menu_id = serializers.IntegerField(required=True)
     qty = serializers.IntegerField(min_value=1, default=1, required=False)  # 옵션
     restaurant_request = serializers.CharField(required=False, allow_blank=True)
     delivery_request = serializers.ChoiceField(choices=Order.DELIVERY_REQUEST_CHOICES, required=False)
-    payment_method = serializers.ChoiceField(choices=Order.PAYMENT_CHOICES, required=True)
+    payment_method = serializers.ChoiceField(choices=Order.PAYMENT_CHOICES, required=False)
 
 
 class OutputSerializer(serializers.Serializer):

@@ -8,3 +8,5 @@ class OrderAdmin(admin.ModelAdmin):
     list_display = ("id", "user", "menu", "quantity", "time")
     list_filter = ("time", "user")
     search_fields = ("menu__name", "user__username")
+
+

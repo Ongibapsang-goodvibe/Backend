@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 import os
+import environ
 #from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -31,7 +32,9 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')  #기본값 제공
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
 
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
+
+# ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
+ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
 CSRF_TRUSTED_ORIGINS = ["https://ongibapsang.pythonanywhere.com"]
 
 AUTH_USER_MODEL = "accounts.User"
@@ -63,10 +66,15 @@ INSTALLED_APPS = [
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework.authentication.TokenAuthentication",
+          "rest_framework.authentication.SessionAuthentication",
     ],
     "DEFAULT_FILTER_BACKENDS": [
         "django_filters.rest_framework.DjangoFilterBackend",
     ],
+    "DEFAULT_THROTTLE_CLASSES": [
+        "rest_framework.throttling.ScopedRateThrottle",
+    ],
+    "DEFAULT_THROTTLE_RATES": {"emails": "20/minute"},
 }
 
 MIDDLEWARE = [
@@ -111,6 +119,30 @@ CORS_ALLOW_HEADERS = [
 'x-requested-with',
 ]
 
+#이메일 전송용 
+env = environ.Env(DEBUG=(bool, False))
+if (BASE_DIR / ".env").exists():
+    environ.Env.read_env(str(BASE_DIR / ".env"))
+
+INTERNAL_NOTIFY_TOKEN = env("INTERNAL_NOTIFY_TOKEN", default="")
+SITE_NAME = env("SITE_NAME", default="서비스")
+SITE_DOMAIN = env("SITE_DOMAIN", default="")
+BRAND_PRIMARY_COLOR = env("BRAND_PRIMARY_COLOR", default="#444444")
+EMAIL_DEMO_OVERRIDE = env("EMAIL_DEMO_OVERRIDE", default="")
+
+EMAIL_BACKEND = env("EMAIL_BACKEND", default="django.core.mail.backends.smtp.EmailBackend")
+EMAIL_HOST = env("EMAIL_HOST", default="")
+EMAIL_PORT = env.int("EMAIL_PORT", default=587)
+EMAIL_USE_TLS = env.bool("EMAIL_USE_TLS", default=True)
+EMAIL_HOST_USER = env("EMAIL_HOST_USER", default="")
+EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD", default="")
+DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL", default=EMAIL_HOST_USER)
+
+# DRF 레이트리밋(간단)
+REST_FRAMEWORK = {
+    "DEFAULT_THROTTLE_CLASSES": ["rest_framework.throttling.ScopedRateThrottle"],
+    "DEFAULT_THROTTLE_RATES": {"emails": "20/minute"},
+}
 
 ROOT_URLCONF = 'Ongibapsang.urls'
 
